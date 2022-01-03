@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Distributor Login</title>
+        <css src="Nvspromo_ZohoCustomerLogin::css/custom_login_create.css" />
+        <script src="Nvspromo_ZohoCustomerLogin::js/orderlogin.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="customer_form_register">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Nvspromo_ZohoCustomerLogin::form/register.phtml</argument>
+                </action>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

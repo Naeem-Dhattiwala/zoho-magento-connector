@@ -1,0 +1,149 @@
+<?php
+if ($this->getOrders()) {
+	if ($this->getContact() == 'Yes'){
+		$salesorder_id = [];
+		$sales_subject =[];
+		$status = [];
+		$modified_time = [];
+		$po_no = [];
+		$so_number = [];
+		$created_date = [];
+		$paid = [];
+		$shipped = [];
+		$bill_contact = [];
+		$bill_street = [];
+		$bill_city = [];
+		$bill_state = [];
+		$bill_Code = [];
+		$bill_country = [];
+		?>
+		<div class="full" style="width:100%; float:left">
+			<div class="open_order">
+				<div style="font-size:16px; color:#000;  padding: 10px 0;">Year</div>
+				<select name="year" id="year">
+					<option value="">Please Select</option>
+					<?php
+						foreach ($this->getOrders() as $j => $orderdata) {
+							$year[$j] = [date('Y',strtotime($orderdata['Created_Time']))];
+						}
+						$years = array_column($year, 0);
+						$years = array_unique($years);
+						if (count($years) > 1) {
+							foreach($years as $yr)
+					        {
+					        	if ($yr >= '2018') {
+					    		?>
+									<option value="orderyears_<?php echo $yr; ?>"><?php echo $yr; ?></option>
+								<?php
+								}
+							}
+						}
+					?>
+				</select>
+			</div>
+		</div>
+		<?php
+		foreach ($this->getOrders() as $i => $orderdata) {
+			$salesorder_id[] = $orderdata['id'];
+	        if(isset($orderdata['Order_Number'])){
+	            $sales_subject[] = $orderdata['Order_Number'];
+	        }
+	     	$so_number[] = $orderdata['Subject'];
+	        $status[] =  $orderdata['Status'];
+	        $modified_time[] =  $orderdata['Modified_Time'];
+	        $po_no[] =  $orderdata['PO_Number'];
+	        $paid[] =   $orderdata['Paid_in_Full'] ;
+	        $created_date[] =   $orderdata['Created_Time'];
+	        $bill_contact[]  = $orderdata['Bill_to_Contact'];
+	        $bill_street[] = $orderdata['Billing_Street'];
+	        $bill_city[] = $orderdata['Billing_City'];
+	        $bill_state[] = $orderdata['Billing_State'];
+	        $bill_Code[] =  $orderdata['Billing_Code'];
+	        $bill_country[] = $orderdata['Billing_Country'];
+	        /*if(empty($pay)){
+	             $pay = 'false';
+	        } else {
+	             $pay = 'true';
+	        }*/
+			//$paid[] = $pay;
+	        $ship = $orderdata['Shipped'];
+	        if(empty($ship)){
+	            $ship = 'false';
+	        } else {
+	            $ship = 'true';
+	        }
+	        $shipped[] =  $ship;
+			$order_date = strtotime("2014-08-21");
+			?>
+			<?php
+			if($status[$i] != "Cancelled"){
+				if(empty($paid[$i])) {
+            		$so_num = explode(' ',$so_number[$i]);
+					$order_id = base64_encode($salesorder_id[$i]);
+					$years =  date('Y',strtotime($orderdata['Created_Time']));
+					?>
+						<div class="orderdata" id="orderyears_<?php echo $years;?>">
+							<a href=<?php echo $this->getBaseUrl(); ?>order_tracker_view/index/edit?so_id=<?php echo $order_id; ?>>
+							<div class="cl_4">
+								<?php 
+									$Attachment = $this->getAttachment($salesorder_id[$i]);
+									if ($Attachment->getData()) {
+										foreach ($this->getAttachment($salesorder_id[$i]) as $key => $Attachmentdata) {
+											?>
+											<img style=" width:225px; height:169px" src="<?php echo $this->getMediaUrl().'nvspromo/artwork/image/thumb/'.$Attachmentdata->getThumb_image(); ?>">
+											<?php 
+										}
+									} else {
+										?>
+										<img style=" width:225px; height:169px" src="<?php echo $this->getMediaUrl(); ?>/nvspromo/no-thumb.png" id="img-585447000007040001">
+										<?php
+									}
+								?>
+							    <div class="po_text">
+						            <span style="float:left">
+						            	<strong>PO#</strong><br><?php echo $po_no[$i]; ?>
+						            </span>
+						            <span style="float:right">
+						            	<strong>SO#</strong><br><?php echo $so_number[$i]; ?>
+						            	</span>
+							    </div>
+						    </div>
+							</a>
+						</div>
+					<?php
+				}
+	        }
+		}
+	} else {
+		echo "Not Website Total Access in Zoho";
+	}
+} else {
+	echo "No Order History !";
+}
+?>
+<div  style="display: none;" id="order_year_response">
+	<p>No Order in this Year.		
+</div>
+<script type="text/javascript">
+	require(['jquery'],function(){
+		jQuery(document).ready(function() {
+		    jQuery('#year').change(function(){
+		    	event.preventDefault();
+		    	if (this.value) {
+			    	var id = jQuery('#'+ this.value).attr('id');
+			    	if (id == this.value) {
+			    		jQuery(".orderdata").hide();
+			    		jQuery('div#'+ this.value).show();
+			    		jQuery( "div#order_year_response" ).hide();
+			    	} else{
+			    		jQuery(".orderdata").hide();
+			    		jQuery('div#'+ this.value).hide();
+			    		jQuery( "div#order_year_response" ).show();
+			    	}
+			    } else{
+			    	jQuery(".orderdata").show();;
+			    }
+		    });
+		});
+	});
+</script>

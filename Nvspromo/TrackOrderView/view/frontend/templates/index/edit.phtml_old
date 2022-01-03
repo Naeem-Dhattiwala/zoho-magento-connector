@@ -1,0 +1,424 @@
+<?php
+ /**
+ *
+ * @author        Viha Digital Commerce Team <naeem@vdcstore.com>.
+ * @copyright     Copyright(c) 2020 Viha Digital Commerce
+ * @link          https://www.vihadigitalcommerce.com/
+ * @date          19/07/2021
+ */
+?>
+<?php
+	$id	= '';
+	$sv_subject = '';
+	$notes = '';
+	$status = '';
+	$acc_name = '';
+	$contact_name = '';
+	$phno = '';	
+	$order_no = '';
+	$sv_po_no = '';
+	$in_hands = '';
+	$prod_des = '';
+	$email_id = '';
+	$paid_in_full = '';
+	$production = '';
+	$shipping_country = '';
+	$contact_person = '';
+	$shipping_street = '';
+	$shipping_city = '';
+	$shipping_state = '';
+	$shipping_code = '';
+	$art_approved = '';
+	$art_order = '';
+	$order_recieved = '';
+	$bill_Code = '';
+	$Tracking_Number = '';
+	$order_notes = '';
+	$grand_total = '';
+	$order_shipped = '';
+	$prod_name = [];
+	if($this->getOrderTrackView())	{
+	 	foreach ($this->getOrderTrackView() as $order) {
+	 		if($order['id']){
+	 			$id	= $order['id'];
+
+	 		}
+	 	   	if(isset($order['Sales_Order']['name'])){
+	 	   		$sv_subject = $order['Sales_Order']['name'];
+	 	 
+	 	   	}else {
+	 	   		$sv_subject = '';
+	 	   	}
+	 	   	if($order['Notes']){
+	 			$notes	= $order['Notes'];
+
+	 		}
+	 	   	if($order['Status']){
+	 	   		$status = $order['Status'];
+	 	 
+	 	   	}
+
+	 	   	if(isset($order['Account_Name']['name'])){
+				$acc_name = $order['Account_Name']['name'];
+			}
+
+			if(isset($order['Contact_Name']['name'])){
+				$contact_name = $order['Contact_Name']['name'];
+			}
+			
+			if($order['Phone_Number']){
+				$phno = $order['Phone_Number'];
+			}
+			if(isset($order['Order_Number'])){
+				$order_no = $order['Order_Number'];
+			}
+			if($order['PO_Number']){
+				$sv_po_no = $order['PO_Number'];
+			}
+			if(isset($order['In_Hands'])){
+				$in_hands = $order['In_Hands'];
+			}
+			if(isset($order['product']['product_description'])){
+				$prod_des = $order['product']['product_description'];
+			}
+			if($order['EMail']){
+				$email_id = $order['EMail'];
+			}
+			if($order['Owner']){
+				$sowner = $order['Owner'];
+			}
+			if($order['Order_to_Vendor']){
+				$ordertovendor = $order['Order_to_Vendor'];
+			}
+			if($order['Vendor']){
+				$vendor = $order['Vendor'];
+			}
+			if($order['PI_Number']){
+				$pi_number = $order['PI_Number'];
+			}
+			if($order['Billing_Name']){
+				$bill_name = $order['Billing_Name'];
+			}
+			if($order['Bill_to_Contact']){
+				$bill_contact = $order['Bill_to_Contact'];
+			}
+			if($order['Billing_Street']){
+				$bill_street = $order['Billing_Street'];
+			}
+			if($order['Billing_City']){
+				$bill_city = $order['Billing_City'];
+			}
+			if($order['Billing_State']){
+				$bill_state = $order['Billing_State'];
+			}
+			if($order['Billing_Code']){
+				$bill_Code = $order['Billing_Code'];
+			}
+			if($order['Billing_Country']){
+				$bill_country = $order['Billing_Country'];
+			}
+			if($order['Ship_To']){
+				$shipto = $order['Ship_To'];
+			}
+			if($order['Contact_Person']){
+				$contact_person = $order['Contact_Person'];
+			}
+			if($order['Shipping_Street']){
+				$shipping_street = $order['Shipping_Street'];
+			}
+			if($order['Shipping_City']){
+				$shipping_city = $order['Shipping_City'];
+			}
+			if($order['Shipping_State']){
+				$shipping_state = $order['Shipping_State'];
+			}
+			if($order['Shipping_Code']){
+				$shipping_code = $order['Shipping_Code'];
+			}
+			if($order['Shipping_Country']){
+				$shipping_country = $order['Shipping_Country'];
+			}
+			if($order['Adjustment']){
+				$adjustment = $order['Adjustment'];
+			}
+			if($order['Sub_Total']){
+				$sub_total = $order['Sub_Total'];
+			}
+			if($order['Tax']){
+				$ttax = $order['Tax'];
+			}
+			if($order['Grand_Total']){
+				$grand_total = $order['Grand_Total'];
+			}
+			if($order['Discount']){
+				$ddiscount = $order['Discount'];
+			}
+			if($order['Order_Notes']){
+				$order_notes = $order['Order_Notes'];
+			}
+			if($order['Art_and_Order_Sent']){
+				$art_order = $order['Art_and_Order_Sent'];
+			}
+			if($order['Art_and_Order_Approved']){
+				$art_approved = $order['Art_and_Order_Approved'];
+			}
+			if($order['Payment_Received']){
+				$payment_recieved = $order['Payment_Received'];
+			}
+			if($order['Order_Received']){
+				$order_recieved = $order['Order_Received'];
+			}
+			if($order['Paid_in_Full']){
+				$paid_in_full = $order['Paid_in_Full'];
+			}
+			if($order['In_Production']){
+				$production = $order['In_Production'];
+			}
+			if($order['Shipped']){
+				$order_shipped = $order['Shipped'];
+			}
+			if($order['Terms_and_Conditions']){
+				$terms = $order['Terms_and_Conditions'];
+			}
+			if($order['Estimated_Ship_Date']){
+				$estimated_date = $order['Estimated_Ship_Date'];
+			}
+			if($order['Tracking_Number']){
+				$Tracking_Number = $order['Tracking_Number'];
+			}
+			if($sv_subject == ''){
+				$sv_subject = $order['Order_Number'];
+			}
+			
+			if(isset($_REQUEST['so_id'])) {
+				$order_id = base64_decode($_REQUEST['so_id']); 
+				$order_type= 'open';
+			}
+	       if(isset($_REQUEST['inv_id'])) {
+		       	$order_id = base64_decode($_REQUEST['inv_id']);
+		       	$order_type= 'closed'; 
+	       }
+	        foreach ($order['Product_Details'] as $soLineItem) {
+				$prod_name[] =$soLineItem['product']['name'];
+				$prod_desc[] =$soLineItem['product_description'];
+				$list_price[] = $soLineItem['list_price'];
+				$quantity[] = $soLineItem['quantity'];
+				$amount[] = $soLineItem['net_total'];
+				$discount[] = $soLineItem['Discount'];
+				$tax[] = $soLineItem['Tax'];
+				$total[] = $soLineItem['total'];
+			}
+			$categories_id = $id;
+			$pdf_id = base64_encode($categories_id);
+		}
+	}
+ ?>
+<div class="track_order_page container">
+ 	<div class="track_order_page_view_header row">
+ 		<div class="track_order_page_view_header_left col-sm-6">
+ 			<div class="order_track_details_and_notes">
+		 		<div class="col-sm-3">
+		 			<div><span>Tracking:</span></div>
+		 			<div><span>Order Notes: </span></div>
+		 		</div>
+				<div class="col-sm-9">
+					<?php echo $Tracking_Number; ?>
+					<textarea cols="10"><?php echo $order_notes; ?></textarea>
+				</div>
+			</div>
+			<div class="order_shipping_details_and_artwork">
+				<div class="col-sm-6">
+					<h3>Ship To</h3>
+					<p>
+						<?php echo $contact_person;?><br>
+						<?php echo $shipping_street;?><br>
+						<?php echo $shipping_city;?><?php echo $shipping_state;?>
+						<?php echo $shipping_code;?><br>
+						<?php echo $shipping_country;?>
+					</p>
+				</div>
+				<div class="col-sm-6">
+					<div>
+						<a href=""><h3>Click to View Artwork</h3></a>
+					</div>
+					<div>
+						<img src="" alt="artwork">
+					</div>
+				</div>
+			</div>
+ 		</div>
+ 		<div class="track_order_page_view_header_right col-sm-6">
+ 			<div class="order_total">
+	 			<?php
+		 			if($grand_total){
+		 				?>
+		 					<span>Order Total: </span>
+	 						<?php echo '<strong>$'. number_format($grand_total,2).'</strong>';?>
+		 				<?php
+		 			}
+			    ?>
+			</div>
+			<div class="order_payment">
+			    <?php if($paid_in_full!='true'){ ?>
+			    	<?php if($grand_total > 0){ ?>
+						<a id="pay_order_link" href="javascript:void(0)"><button class="order_checkout">Approve & Proceed To Checkout</button></a>
+					<?php }?>
+				<?php }?>
+			</div>
+			<br>
+			<div class="download_order_and_artwork">
+				<?php if (isset($_REQUEST['so_id'])) { ?>
+            		<a href="<?php echo $this->getBaseUrl()."order_tracker_view/index/downloadpdf?so_id=".$pdf_id; ?>"  ><button class="order_pdf"><strong>Download Order</strong></button></a>
+            		<a href="<?php echo $this->getBaseUrl()."order_tracker_view/index/downloadpdf?so_id=".$pdf_id; ?>"  ><button class="order_pdf"><strong>Download Artwork</strong></button></a>
+		        <?php }?>
+		        <?php if (isset($_REQUEST['inv_id'])) { ?>
+		            <a href="<?php echo $this->getBaseUrl()."order_tracker_view/index/downloadpdf?inv_id=".$pdf_id; ?>"  ><button class="order_pdf"><strong>Download Order</strong></button></a>
+            		<a href="<?php echo $this->getBaseUrl()."order_tracker_view/index/downloadpdf?inv_id=".$pdf_id; ?>"  ><button class="order_pdf"><strong>Download Artwork</strong></button></a>
+		        <?php }?>
+			</div>
+ 		</div>
+ 		<div class="order_status_details">
+ 			<div class="order_status_title">
+ 				<h4>Order Status</h4>
+ 			</div>
+ 			<div class="order_status_list1 col-sm-2">
+ 				<?php
+ 					$Checked = $this->getMediaUrl().'nvspromo/checked.png';
+ 					$Unchecked = $this->getMediaUrl().'nvspromo/unchecked.png';
+ 				?>
+ 				<ul>
+ 					<li>
+ 						<?php if($order_recieved == 'true') { 
+            				echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Checked.'" /> Order Received</span>';
+			            	} else { 
+			            		echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Unchecked.'" /> Order Received</span>';
+			            	}
+		            	?>
+            		</li>
+ 					<li>
+ 						<?php if($art_order == 'true') { 
+            				echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Checked.'" /> Confirmation Sent</span>';
+			            	} else { 
+			            		echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Unchecked.'" /> Confirmation Sent</span>';
+			            	}
+		            	?>
+		            </li>
+ 					<li>
+ 						<?php if($art_approved == 'true') { 
+            				echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Checked.'" />Art & Ordered Approved</span>';
+			            	} else { 
+			            		echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Unchecked.'" />Art & Ordered Approved</span>';
+			            	}
+		            	?>
+ 					</li>
+ 				</ul>
+ 				<br>
+ 				<div class="delivery_date">
+	 				<span>In-hands Date</span><br>
+	                <strong><span class="sc_font"><?php if(empty ($in_hands)){ echo "--";} else {echo date("m-d-Y", strtotime($in_hands));}?></span></strong>
+	            </div>
+ 			</div>
+ 			<div class="order_status_list2 col-sm-2">
+ 				<ul>
+ 					<li>
+ 						<?php if($paid_in_full == 'true') { 
+            				echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Checked.'" />Paid in Full</span>';
+			            	} else { 
+			            		echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Unchecked.'" />Paid in Full</span>';
+			            	}
+		            	?>
+ 					</li>
+ 					<li>
+ 						<?php if($production == 'true') { 
+            				echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Checked.'" /> In Production</span>';
+			            	} else { 
+			            		echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Unchecked.'" /> In Production</span>';
+			            	}
+		            	?>
+ 					</li>
+ 					<li>
+ 						<?php if($order_shipped == 'true') { 
+            				echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Checked.'" />Shipped</span>';
+			            	} else { 
+			            		echo '<span style="display:flex"><img style="margin-right:10px" src="'.$Unchecked.'" />Shipped</span>';
+			            	}
+		            	?>
+ 					</li>
+ 				</ul>
+ 				<br>
+ 				<div class="shipping_estimate_date">
+	                <span>Estimated Ship Date</span><br>
+	                <strong><span class="sc_font"><?php if(empty ($estimated_date)){ echo "--";} else {echo date("m-d-Y", strtotime($estimated_date));}?></span></strong>
+	            </div>
+ 			</div>
+ 		</div>
+ 	</div>
+ 	<div class="track_order_page_view_product_details row">
+		<table style="width:78%;">
+	        <tr>
+	            <td>
+	                <table align="left">
+	                    <tr align="center" style=" background:#F0F0F0;">
+	                        <td align="left">
+	                            <h5>ITEM</h5>
+	                        </td>
+	                        <td >
+	                            <h5>Qty</h5>
+	                        </td>
+	                        <td >
+	                            <h5>NET Price</h5>
+	                        </td>
+	                        <td align="right">
+	                            <h5>Total</h5>
+	                        </td>
+	                    </tr>
+	                    <?php  
+	                        $count_value = count($prod_name);
+	                        $no =1;
+	                        for($i=0; $i<$count_value;$i++) { 
+	                    ?>
+		                    <tr>
+		                        <td  align="left" ><span class="sc_cbold">
+		                        	<?php if(empty ($prod_name[$i])){ echo "--";} else {echo $prod_name[$i];}?></span><br /><?php if(empty ($prod_desc[$i])){ echo "--";} else {echo nl2br($prod_desc[$i]);}?>
+		                        </td>
+		                        <td  height="17" align="center" valign="top" >
+		                        	<span class="sc_cbold"><?php if(empty ($quantity[$i])){ echo "--";} else {echo round($quantity[$i]);}?></span>
+		                        </td>
+		                        <td  align="center" valign="top" ><span class="sc_cbold">
+		                        	<?php if(empty ($list_price[$i])){ echo "0";} else {echo '$'.number_format($list_price[$i],2);}?></span>
+		                        </td>
+		                        <td align="right" valign="top" >
+		                        	<span class="sc_cbold"><?php if(empty ($total[$i])){ echo "0";} else {echo '$' . number_format($total[$i],2);}?></span>
+		                        </td>
+		                    </tr>
+		                    <tr >
+		                        <td style="border-bottom:1px solid #ccc" colspan="5"></td>
+		                    </tr>
+	                    <?php  
+	                    	$no++; } 
+	                    ?>
+	                </table>
+	            </td>
+	        </tr>
+	        <?php if($paid_in_full!='true'){ ?>
+	        	<?php if($grand_total > 0){ ?>
+			        <tr colspan="3">
+			            <td>
+			                <table>
+			                    <tr align="right">
+			                        <td>Order Total</td>
+			                        <td><span style="font-size:13px; font-weight:bold;">$<?php if(empty ($grand_total)){ echo "0.0";} else {echo  number_format($grand_total,2);}?></span></td>
+			                    </tr>
+			                    <tr align="right">
+			                    	<td>
+			                    		<a id="pay_order_link" href="javascript:void(0)"><button class="order_checkout">Approve & Proceed To Checkout</button></a>
+			                    	</td>
+			                    </tr>
+			                </table>
+			            </td>
+			        </tr>
+			    <?php } ?>
+		    <?php } ?>
+		</table>
+ 	</div>
+</div>

@@ -1,0 +1,597 @@
+<?php
+ /**
+ *
+ * @author        Viha Digital Commerce Team <naeem@vdcstore.com>.
+ * @copyright     Copyright(c) 2020 Viha Digital Commerce
+ * @link          https://www.vihadigitalcommerce.com/
+ * @date          19/07/2021
+ */
+?>
+<?php
+		$id	= '';
+		$sv_subject = '';
+		$notes = '';
+		$status = '';
+		$acc_name = '';
+		$contact_name = '';
+		$phno = '';	
+		$order_no = '';
+		$sv_po_no = '';
+		$in_hands = '';
+		$prod_des = '';
+		$email_id = '';
+		$paid_in_full = '';
+		$production = '';
+		$shipping_country = '';
+		$contact_person = '';
+		$shipping_street = '';
+		$shipping_city = '';
+		$shipping_state = '';
+		$shipping_code = '';
+		$art_approved = '';
+		$art_order = '';
+		$order_recieved = '';
+		$bill_Code = '';
+	if($this->getOrderTrackView())	{
+	 	foreach ($this->getOrderTrackView() as $order) {
+	 		if($order['id']){
+	 			$id	= $order['id'];
+
+	 		}
+	 	   	if(isset($order['Sales_Order']['name'])){
+	 	   		$sv_subject = $order['Sales_Order']['name'];
+	 	 
+	 	   	}else {
+	 	   		$sv_subject = '';
+	 	   	}
+	 	   	if($order['Notes']){
+	 			$notes	= $order['Notes'];
+
+	 		}
+	 	   	if($order['Status']){
+	 	   		$status = $order['Status'];
+	 	 
+	 	   	}
+
+	 	   	if(isset($order['Account_Name']['name'])){
+				$acc_name = $order['Account_Name']['name'];
+			}
+
+			if(isset($order['Contact_Name']['name'])){
+				$contact_name = $order['Contact_Name']['name'];
+			}
+			
+			if($order['Phone_Number']){
+				$phno = $order['Phone_Number'];
+			}
+			if(isset($order['Order_Number'])){
+				$order_no = $order['Order_Number'];
+			}
+			if($order['PO_Number']){
+				$sv_po_no = $order['PO_Number'];
+			}
+			if(isset($order['In_Hands'])){
+				$in_hands = $order['In_Hands'];
+			}
+			if(isset($order['product']['product_description'])){
+				$prod_des = $order['product']['product_description'];
+			}
+			if($order['EMail']){
+				$email_id = $order['EMail'];
+			}
+			if($order['Owner']){
+				$sowner = $order['Owner'];
+			}
+			if($order['Order_to_Vendor']){
+				$ordertovendor = $order['Order_to_Vendor'];
+			}
+			if($order['Vendor']){
+				$vendor = $order['Vendor'];
+			}
+			if($order['PI_Number']){
+				$pi_number = $order['PI_Number'];
+			}
+			if($order['Billing_Name']){
+				$bill_name = $order['Billing_Name'];
+			}
+			if($order['Bill_to_Contact']){
+				$bill_contact = $order['Bill_to_Contact'];
+			}
+			if($order['Billing_Street']){
+				$bill_street = $order['Billing_Street'];
+			}
+			if($order['Billing_City']){
+				$bill_city = $order['Billing_City'];
+			}
+			if($order['Billing_State']){
+				$bill_state = $order['Billing_State'];
+			}
+			if($order['Billing_Code']){
+				$bill_Code = $order['Billing_Code'];
+			}
+			if($order['Billing_Country']){
+				$bill_country = $order['Billing_Country'];
+			}
+			if($order['Ship_To']){
+				$shipto = $order['Ship_To'];
+			}
+			if($order['Contact_Person']){
+				$contact_person = $order['Contact_Person'];
+			}
+			if($order['Shipping_Street']){
+				$shipping_street = $order['Shipping_Street'];
+			}
+			if($order['Shipping_City']){
+				$shipping_city = $order['Shipping_City'];
+			}
+			if($order['Shipping_State']){
+				$shipping_state = $order['Shipping_State'];
+			}
+			if($order['Shipping_Code']){
+				$shipping_code = $order['Shipping_Code'];
+			}
+			if($order['Shipping_Country']){
+				$shipping_country = $order['Shipping_Country'];
+			}
+			if($order['Adjustment']){
+				$adjustment = $order['Adjustment'];
+			}
+			if($order['Sub_Total']){
+				$sub_total = $order['Sub_Total'];
+			}
+			if($order['Tax']){
+				$ttax = $order['Tax'];
+			}
+			if($order['Grand_Total']){
+				$grand_total = $order['Grand_Total'];
+			}
+			if($order['Discount']){
+				$ddiscount = $order['Discount'];
+			}
+			if($order['Notes']){
+				$order_notes = $order['Notes'];
+			}
+			if($order['Art_and_Order_Sent']){
+				$art_order = $order['Art_and_Order_Sent'];
+			}
+			if($order['Art_and_Order_Approved']){
+				$art_approved = $order['Art_and_Order_Approved'];
+			}
+			if($order['Payment_Received']){
+				$payment_recieved = $order['Payment_Received'];
+			}
+			if($order['Order_Received']){
+				$order_recieved = $order['Order_Received'];
+			}
+			if($order['Paid_in_Full']){
+				$paid_in_full = $order['Paid_in_Full'];
+			}
+			if($order['In_Production']){
+				$production = $order['In_Production'];
+			}
+			if($order['Shipped']){
+				$order_shipped = $order['Shipped'];
+			} else {
+				$order_shipped = '';
+			}
+			if($order['Terms_and_Conditions']){
+				$terms = $order['Terms_and_Conditions'];
+			}
+			if($order['Tracking_Number']){
+				$track_number = $order['Tracking_Number'];
+			}
+			if($order['Tracking_Number']){
+				$track_number_orijinal = $order['Tracking_Number'];
+			}
+			if($order['Estimated_Ship_Date']){
+				$estimated_date = $order['Estimated_Ship_Date'];
+			}
+			if($order['Tracking_Number']){
+				$Tracking_Number = $order['Tracking_Number'];
+			}
+			if($sv_subject == ''){
+				$sv_subject = $order['Order_Number'];
+			}
+			
+			if(isset($_REQUEST['so_id'])) {
+				$order_id = base64_decode($_REQUEST['so_id']); 
+				$order_type= 'open';
+			}
+	       if(isset($_REQUEST['inv_id'])) {
+		       	$order_id = base64_decode($_REQUEST['inv_id']);
+		       	$order_type= 'closed'; 
+	       }
+	        foreach ($order['Product_Details'] as $soLineItem) {
+				$prod_name[] =$soLineItem['product']['name'];
+				$prod_desc[] =$soLineItem['product_description'];
+				$list_price[] = $soLineItem['list_price'];
+				$quantity[] = $soLineItem['quantity'];
+				$amount[] = $soLineItem['net_total'];
+				$discount[] = $soLineItem['Discount'];
+				$tax[] = $soLineItem['Tax'];
+				$total[] = $soLineItem['total'];
+			}
+			$categories_id = $id;
+			$pdf_id = base64_encode($categories_id);
+			//$token_header = $this->getToken();
+		}
+	}
+ ?>
+ <div class="contentContainer">
+    <div class="contentText">
+    	<div class="row" style="margin-top:25px;">
+            <div class="open_order">
+            	<?php if(isset($_REQUEST['so_id'])){
+					$order_label='SO#: ';
+					$heading_text='Open Order';
+					$sv_subject=str_replace('SO','',$sv_subject);
+					$track_number = $sv_subject;	
+					}else{
+						$heading_text= 'Shipped / Invoiced';$order_label='Invoice#: ';
+						$sv_subject=str_replace('SO','',$sv_subject);
+						$track_number = $sv_subject;
+					}
+				?>
+				<h1 style="color:#3366ff; text-transform:none;">
+					<?php echo $heading_text;?>
+				</h1>
+				<strong><?php echo 'PO#: '.$sv_po_no;?></strong><br/>
+                <strong><?php echo $order_label.$track_number;?></strong><br /> 
+                <?php if($order_type == 'open'){ 
+                	echo "<br /><br />";
+                } ?>
+                <strong>Order  Total:</strong>
+	                <?php
+		                if(empty ($grand_total)){ 
+		                	echo "--";
+		                } else {
+		                	echo '<strong>$'. number_format($grand_total,2).'</strong>';
+		                }
+	                ?><br />
+	                <?php 
+		               	if(isset($_REQUEST['inv_id'])) { ?>
+		               		<strong>Payment Status: 
+		               			<?php 
+		               			if(($payment_recieved=='Yes' || $payment_recieved=='YES')){ 
+		               				echo 'Paid in Full';
+		               			} else { 
+		               				echo 'Payment Pending';
+		               			} 
+		               	}
+	               	?>
+               	</strong>
+            </div>
+            <div class="order_image">
+                <img src="<?php echo 'https://www.nvspromo.com/media/pdf/art_image/thumbs/no-thumb.png'?>" style="width:225px; height:165px" />
+            </div>
+            <div class="order_notes">
+                Order Notes:<br /><textarea cols="40" style=" border:1px solid #ccc; border-radius:3px; resize: none;" readonly><?php if(empty($notes)){ echo " ";} else { echo  $notes;}?></textarea>
+            </div>
+            <br />
+            <br />
+            <div class="row <?php if(isset($_REQUEST['inv_id']) &&($paid_in_full=='true')) { echo "margin_row";} ?>" style="width:100.7%; float:left">
+            	<?php if(($paid_in_full!='true')){?>
+				<span class="orlogin"><a id="pay_order_link" href="javascript:void(0)">Click to pay</a></span>
+			<?php }?>
+            	<div class="attri_content">
+            		<h2 style="color:#3399cc; text-transform:none">Order Status</h2>
+            	</div>
+            	<br>
+            	<br />
+            	<br />
+            	<?php if($order_recieved == 'true'){ 
+            		$order_recieved_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/checked.png';
+            	}else{ 
+            		$order_recieved_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/unchecked.png';}
+            	?>
+            	<span style="display:flex"><img style="margin-right:10px" src="<?php echo $order_recieved_img; ?>" /> Order Received</span><br>
+
+            	<?php if($art_order == 'true'){ 
+            		$art_order_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/checked.png';
+            	}else{ 
+            		$art_order_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/unchecked.png';}
+            	?>
+            	<span style="display:flex"><img style="margin-right:10px" src="<?php echo $art_order_img;?>" /> Confirmation Sent</span><br>
+            	<?php if($art_approved == 'true'){ 
+            		$art_approved_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/checked.png';
+            	}else{ 
+            		$art_approved_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/unchecked.png';}
+            	?>
+            	<span style="display:flex"><img style="margin-right:10px"src="<?php echo $art_approved_img;?>" /> Art & Ordered Approved</span><br>
+            	<?php if($paid_in_full == 'true'){ 
+            		$paid_in_full_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/checked.png';
+            	}else{ 
+            		$paid_in_full_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/unchecked.png';}
+            	?>
+            	<span style="display:flex"><img style="margin-right:10px" src="<?php echo $paid_in_full_img;?>" /> Paid in Full</span><br>
+            	<?php if($production == 'true'){ 
+            		$in_production_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/checked.png';
+            	} else { 
+            		$in_production_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/unchecked.png';
+            	}?>
+                <span style="display:flex"><img style="margin-right:10px" src="<?php echo $in_production_img; ?>" /> In Production</span><br>
+                 <?php if($order_shipped == 'true'){ 
+            		$order_shipped_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/checked.png';
+            		} else { 
+            		$order_shipped_img = 'https://www.nvspromo.com/skin/frontend/nvs/default/images/unchecked.png';
+            		}?>
+                <span style="display:flex"><img style="margin-right:10px" src="<?php echo $order_shipped_img;?>" /> Shipped</span><br>
+                <br />
+                In-hands Date
+                <br />
+                <<strong><span class="sc_font"><?php if(empty ($in_hands)){ echo "--";} else {echo date("m-d-Y", strtotime($in_hands));}?></span></strong>
+                <br /><br />
+                Estimated Ship Date
+                <br />
+                <strong><span class="sc_font"><?php if(empty ($estimated_date)){ echo "--";} else {echo date("m-d-Y", strtotime($estimated_date));}?></span></strong>
+                <br /><br />
+                Tracking Number<br />
+                <strong><span class="sc_font"><?php if(empty ($track_number_orijinal)){ echo "--";} else {echo $track_number_orijinal;}?></span></strong>
+                <br />
+            </div>
+            <div class="table_data">
+            	<div id="pay_form" class="border" style="display:none">
+                    <?php echo "Pay Order";?>
+                </div>
+                <h2 style="text-transform:none; color:#000;">Order Confirmation Details</h2>
+            </div>
+            <?php if (isset($_REQUEST['so_id'])) { ?>
+            	<span class="orlogin"><a href="<?php echo "http://ec2-18-218-27-80.us-east-2.compute.amazonaws.com/order_tracker_view/index/downloadpdf?so_id=".$pdf_id; ?>"  ><strong>Click to download</strong></a></span>
+            <?php }?>
+            <?php if (isset($_REQUEST['inv_id'])) { ?>
+                <span class="orlogin"><a href="<?php echo "http://ec2-18-218-27-80.us-east-2.compute.amazonaws.com/order_tracker_view/index/downloadpdf?inv_id=".$pdf_id; ?>"><strong>Click to download</strong></a></span>
+            <?php }?>
+            <div class="border">
+            	<table  width="100%" style="padding-left: 13px;width:100%;">
+            		<tr>
+            			<td height="691">
+            				<table align="left" style=" width:100%; border-right-style:solid;border-bottom: 2px solid #ccc; border-left-style:solid; border-width:2px;border-color:#CCC;border-top:2px solid #ccc" >
+            					<tr>
+            						<td height="121" align="left" valign="bottom">
+            							<table style="width:100%" align="left" >
+	            							<tr>
+	            								<td rowspan="3" valign="middle"> 
+	            									<img style="width:130px" src="https://www.nvspromo.com/skin/frontend/nvs/default/images/logo.gif" alt="https://www.nvspromo.com/skin/frontend/nvs/default/images/logo.gif" class="small" />
+	            								</td>
+	            								 <td rowspan="3" align="center" valign="middle">
+                                                        <h5>NVS Promotional Designs Inc.</h5>
+                                                        1041 W. 18th St., Suite A-207<br>
+                                                        Costa Mesa, CA 92627<br>
+                                                        O - 877-503-3533 F - 949-272-0545
+                                                </td>
+                                                <td align="right"><span style="margin-top:2px;  margin-bottom:2px; font-size:14px; font-weight:bold; color:#000"><?php if(isset($_REQUEST['inv_id'])){ echo "Invoice";} else{?>Sales Order<?php }?></span>
+                                                </td>
+	            							</tr>
+	            							<tr align="center">
+	            								<td height="26" align="right">
+                                                    <?php if(isset($_REQUEST['inv_id'])){ ?>
+                                                    	<span style="margin-top: 2px;  margin-bottom: 2px; font-size:12px; font-weight:bold; color:#000">Invoice Date: </span>
+                                                    	<span class="sc_font"><?php if(empty ($in_hands)){ echo "--";} else {echo date("m-d-Y", strtotime($in_hands));}?></span><?php } else{ ?>
+                                                    	<span style="margin-top: 2px;  margin-bottom: 2px; font-size:12px; font-weight:bold; color:#000">Due Date:</span><br/><span class="sc_font"><?php if(empty ($in_hands)){ echo "--";} else {echo date("m-d-Y", strtotime($in_hands));}?></span>
+                                                    <?php }?>
+                                                </td>
+	            							</tr>
+	            							<tr align="center">
+                                                <td height="48" align="right">
+                                                	 <span style="margin-top: 2px;  margin-bottom: 2px; font-size:14px; font-weight:bold; color:#000"><?php if(isset($_REQUEST['inv_id'])){ echo "Invoice Number";}
+                                                		 else{?>Sales Order Number:<?php }?></span><br>
+                                                        <span class="sc_font"><?php if(isset($_REQUEST['inv_id'])){ if(empty ($track_number)){ echo "--";} else {echo $track_number;} } else {if(empty ($sv_subject)){ echo "--";} else {echo $sv_subject;} }?></span>
+                                                    </td>
+                                                </tr>
+	            						</table>
+            						</td>
+            					</tr>
+            					<tr>
+            						<td height="131" align="left">
+            							<table  align="left" style=" width:100%; border-right-style:solid;border-bottom: 2px solid #ccc; border-left-style:solid; border-top:2px solid #ccc; border-width:2px;border-color:#CCC;">
+            								<tr>
+            									<td height="110" align="left" valign="top" style="border-right-style:solid;  border-width:2px;border-color:#CCC; font-weight:bold; color:#000">
+                                                    BILL TO:<br>
+                                                    <?php if(!empty ($bill_name)){?>
+                                                    <span class="sc_bold"><?php if(empty ($bill_name)){ echo "--";} else {echo $bill_name;}?></span><br><?php }?>
+                                                    <?php if(!empty ($bill_street)){?>
+                                                    <span class="sc_font"><?php echo $bill_street;?></span><br><?php }?>
+                                                    <?php if(!empty ($bill_city) || !empty ($bill_state) || !empty ($bill_Code)){?>
+                                                    <span class="sc_font"><?php echo $bill_city;?> <?php echo $bill_state;?> <?php echo $bill_Code;?></span><br><?php }?>
+                                                    <?php if(!empty ($bill_country)){?>
+                                                    <span class="sc_font"> <?php echo $bill_country;?></span>
+                                                    <?php }?>
+                                                </td>
+                                                <td align="left"  valign="top"  style="font-weight:bold; color:#000">SHIP TO<br>
+                                                    <span class="sc_bold"><?php if(empty ($shipto)){ echo "--";} else {echo $shipto;}?></span><br>
+                                                    <span class="sc_font"><?php echo $contact_person;?></span><br>
+                                                    <span class="sc_font"><?php echo $shipping_street;?></span><br>
+                                                    <span class="sc_font"><?php echo $shipping_city;?><?php echo $shipping_state;?><?php echo $shipping_code;?> </span> <br>
+                                                    <span class="sc_font"><?php echo $shipping_country;?></span>
+                                                </td>
+            								</tr>
+            							</table>
+            						</td>
+            					</tr>
+            					<tr>
+	                                <td height="39" align="left" valign="top">
+	                                    <table  align="left"  style=" width:100%; border-top:1px solid #666; border-bottom: 1px solid #ccc; margin-top:20px">
+	                                        <tr>
+	                                            <td height="17" width="140" align="right" valign="top" style="background-color:#F0F0F0;">
+	                                            	<span class="sc_font">
+	                                            		Account Name:
+	                                            	</span>
+	                                            </td>
+	                                            <td width="222">
+	                                            	<span class="sc_cbold">
+	                                            		<?php if(empty ($acc_name)){ echo "--";} else {echo $acc_name;}?>
+	                                            	</span>
+	                                            </td>
+	                                            <?php if(isset($_REQUEST['inv_id'])){ ?>
+		                                            <td height="17" width="140" valign="top" style="background-color:#F0F0F0;">
+		                                            	<?php if(isset($_REQUEST['inv_id'])){ 
+		                                            	?>Contact Person:
+		                                            	<?php }?>
+		                                            </td>
+		                                            <td>
+		                                            	<?php if(isset($_REQUEST['inv_id'])){ ?>
+		                                            		<span class="sc_cbold">
+		                                            			<?php if(empty ($sowner)){ echo "--";
+		                                            				} else {echo implode(" ",$sowner);}
+		                                            			?>
+		                                            		</span>
+		                                            	<?php }?>
+		                                            </td>
+	                                            <?php }?>
+	                                            <?php if(isset($_REQUEST['so_id'])){ ?>
+		                                            <td height="17" width="140" align="right" valign="top" style="background-color:#F0F0F0;"><?php if(isset($_REQUEST['so_id'])){ ?>Order Tracker<?php }?>
+		                                            </td>
+		                                            <td><?php if(empty ($Tracking_Number)){ echo "--";} else {echo $Tracking_Number;}?>
+		                                            </td>
+	                                            <?php } ?>
+	                                        </tr>
+	                                        <?php if(isset($_REQUEST['inv_id'])){ ?>
+		                                        <tr>
+		                                            <td height="17" align="right" valign="top" style="background-color:#F0F0F0;"></td>
+		                                            <td>&nbsp;</td>
+		                                            <td height="17" valign="top" style="background-color:#F0F0F0;"><?php if(isset($_REQUEST['inv_id'])){ ?>Phone Number<?php }?></td>
+		                                            <td><?php if(isset($_REQUEST['inv_id'])){ ?><span class="sc_cbold"><?php if(empty ($phno)){ echo "--";} else {echo $phno;}?></span><?php }?></td>
+		                                        </tr>
+	                                        <?php } ?>
+	                                        <?php if(isset($_REQUEST['so_id'])){ ?>
+		                                        <tr>
+		                                            <td height="17" align="right" valign="top" style="background-color:#F0F0F0;"></td>
+		                                            <td>&nbsp;</td>
+		                                            <td height="17" width="140" align="right" valign="top" style="background-color:#F0F0F0;"><span class="sc_font">Account Name:</span></td>
+		                                            <td><span class="sc_cbold"><?php if(empty ($acc_name)){ echo "--";} else {echo $acc_name;}?></span></td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td height="17" align="right" valign="top" style="background-color:#F0F0F0;"></td>
+		                                            <td>&nbsp;</td>
+		                                            <td height="17" width="140" align="right" valign="top" style="background-color:#F0F0F0;"><span class="sc_font">Sales Order ID#</span></td>
+		                                            <td><span class="sc_cbold"><?php if(empty ($sv_subject)){ echo "--";} else {echo $sv_subject;}?></span></td>
+		                                        </tr>
+	                                        <?php } ?>
+	                                    </table>
+	                                </td>
+                                </tr>
+                                <?php
+                                    $_margin_brd='';
+                                    if(isset($_REQUEST['so_id'])){ 
+                                        $_margin_brd=' border-top: 1px solid #ccc; margin-top:20px;';
+                                    }
+                                ?>
+                                <tr>
+                                        <td height="112" align="left" valign="top" >
+                                            <table  align="left"  style="width:100%; border-bottom: 2px solid #ccc; <?php echo $_margin_brd;?>">
+                                                <tr>
+                                                    <td rowspan="4" width="140" align="right" valign="top" style="background-color:#F0F0F0; border-right: none !important; font-size:13px; color:#000;">Contact Person:</td>
+                                                    <td height="16" width="222"><span class="sc_cbold"><?php if(empty ($contact_name)){ echo "--";} else {echo $contact_name;}?></span></td>
+                                                    <td rowspan="4" width="140" align="right" valign="middle" style="background-color:#F0F0F0;border-right: none !important; ">
+                                                        <?php if(isset($_REQUEST['inv_id'])){ ?> <span style="margin-top: 5px;  margin-bottom: 5px; font-size:13px;">Sales Order:</span><br>
+                                                        <span style="margin-top: 5px;  margin-bottom: 2px; font-size:13px;">Purchase Order:</span>
+                                                        <?php } else{?>
+                                                        <span style="margin-top:5px;  margin-bottom: 5px; font-size:13px;">Email:</span><br>
+                                                        <span style="padding-top: 10px;  margin-bottom: 10px; font-size:13px;">SO Number:</span><br>
+                                                        <span style="margin-top: 5px;  margin-bottom: 5px; font-size:13px;">PO Number:</span><br>
+                                                        <span style="margin-top: 5px;  margin-bottom: 2px; font-size:13px;">In-Hands:</span>
+                                                    </td>
+                                                    <td><span class="sc_cbold"><?php if(empty ($email_id)){ echo "--";} else {echo $email_id;}?></span><?php }?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="16"><span class="sc_cbold"><?php if(empty ($phno)){ echo "--";} else {echo $phno;}?></span></td>
+                                                    <td><span class="sc_cbold"> <?php if(empty ($sv_subject)){ echo "--";} else {echo $sv_subject;}?></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="16"><span class="sc_cbold"><?php if(empty ($email_id)){ echo "--";} else {echo $email_id;}?></span></td>
+                                                    <td><span class="sc_cbold"><?php if(empty ($sv_po_no)){ echo "--";} else {echo $sv_po_no;}?></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="23"></td>
+                                                    <td valign="top"><span class="sc_cbold"><?php if(!isset($_REQUEST['inv_id'])){ if(empty ($in_hands)){ echo "--";} else {echo date("m-d-Y", strtotime($in_hands));} }?></span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td  height="42" align="left" >
+                                            <table align="left" style="width:100%;border-top:2px solid #666;" >
+                                                <TR align="center">
+                                                    <td height="17" valign="top" style=" background:#F0F0F0;">
+                                                        <h5>S.No</h5>
+                                                    </td>
+                                                    <td style=" background:#F0F0F0;">
+                                                        <h5>Product Details</h5>
+                                                    </td>
+                                                    <td  style=" background:#F0F0F0;">
+                                                        <h5>Qty</h5>
+                                                    </td>
+                                                    <td  style=" background:#F0F0F0;">
+                                                        <h5>Net Price</h5>
+                                                    </td>
+                                                    <td  align="right" style=" background:#F0F0F0;">
+                                                        <h5>Total</h5>
+                                                    </td>
+                                                </tr>
+                                                <?php  
+                                                    $count_value = count($prod_name);
+                                                    $no =1;
+                                                    for($i=0; $i<$count_value;$i++){ ?>
+                                                <tr>
+                                                    <td height="17" align="center" valign="top" ><span class="sc_cbold"><?php echo $no;?></span></td>
+                                                    <td  align="left" ><span class="sc_cbold"><?php if(empty ($prod_name[$i])){ echo "--";} else {echo $prod_name[$i];}?></span><br /><?php if(empty ($prod_desc[$i])){ echo "--";} else {echo nl2br($prod_desc[$i]);}?></td>
+                                                    <td  height="17" align="center" valign="top" ><span class="sc_cbold"><?php if(empty ($quantity[$i])){ echo "--";} else {echo round($quantity[$i]);}?></span></td>
+                                                    <td  align="center" valign="top" ><span class="sc_cbold">$<?php if(empty ($list_price[$i])){ echo "--";} else {echo number_format($list_price[$i],2);}?></span></td>
+                                                    <td align="right" valign="top" ><span class="sc_cbold">$<?php if(empty ($total[$i])){ echo "--";} else {echo number_format($total[$i],2);}?></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="border-bottom:1px solid #ccc" colspan="5"></td>
+                                                </tr>
+                                                <?php  $no++;} ?>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right"  height="90" style="border-bottom: 1px solid #ccc;">
+                                            <table style="width:100%" >
+                                                <tr>
+                                                    <td height="21" align="right" >Sub Total :</td>
+                                                    <td align="right"><span style="font-size:13px; font-weight:bold;">$<?php if(empty ($grand_total)){ echo "0.00";} else {echo  number_format($grand_total,2);}?></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="21" align="right" >Tax :</td>
+                                                    <td align="right"><span style="font-size:13px; ">$<?php if(empty ($tax[0])){ echo "0.00";} else {echo number_format($tax[0]);}?></span></td>
+                                                </tr>
+                                                <tr >
+                                                    <td height="21" align="right">Adjustment :</td>
+                                                    <td align="right"><span style="font-size:13px;">$<?php if(empty ($adjustment)){ echo "0.00";} else {echo number_format($adjustment);}?></span></td>
+                                                </tr>
+                                                <tr valign="top">
+                                                    <td height="2"></td>
+                                                    <td align="right" style="border-bottom:1px solid #ccc" ></td>
+                                                </tr>
+                                                <tr >
+                                                    <td height="21"  align="right">Total :</td>
+                                                    <td align="right"><span style="font-size:13px; font-weight:bold;">$<?php if(empty ($grand_total)){ echo "0.0";} else {echo  number_format($grand_total,2);}?></span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="28"></td>
+                                    </tr>
+                                    <tr valign="top" >
+                                        <td height="58" align="left" style="border-top:2px solid #666; border-bottom: 2px solid #666">
+                                            Terms and Conditions<br />
+                                            <?php if(empty ($terms)){ echo " ";} else {echo $terms;}?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="2"></td>
+                                    </tr>
+            				</table>
+            			</td>
+            		</tr>
+            	</table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Distributor Login</title>
+        <css src="Nvspromo_ZohoCustomerLogin::css/custom_login_create.css" />
+        <script src="Nvspromo_ZohoCustomerLogin::js/orderlogin.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="customer_form_login">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Nvspromo_ZohoCustomerLogin::form/login.phtml</argument>
+                </action>
+            </referenceBlock>
+            <referenceBlock name="customer.new">
+                <action method="setTemplate">
+                    <argument name="template" xsi:type="string">Nvspromo_ZohoCustomerLogin::form/PoLogin.phtml</argument>
+                </action>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

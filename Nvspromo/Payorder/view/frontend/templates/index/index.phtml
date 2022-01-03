@@ -1,0 +1,610 @@
+<?php
+ /**
+ *
+ * @author        Viha Digital Commerce Team <naeem@vdcstore.com>.
+ * @copyright     Copyright(c) 2020 Viha Digital Commerce
+ * @link          https://www.vihadigitalcommerce.com/
+ * @date          22/12/2021
+ */
+?>
+<?php
+	$id					= '';
+	$sv_subject 		= '';
+	$notes 				= '';
+	$status 			= '';
+	$acc_name 			= '';
+	$contact_name 		= '';
+	$phno 				= '';	
+	$order_no 			= '';
+	$sv_po_no 			= '';
+	$encode_po_no 		= '';
+	$in_hands 			= '';
+	$prod_des 			= '';
+	$email_id 			= '';
+	$paid_in_full 		= '';
+	$production 		= '';
+	$shipping_country 	= '';
+	$contact_person 	= '';
+	$shipping_street 	= '';
+	$shipping_city 		= '';
+	$shipping_state 	= '';
+	$shipping_code 		= '';
+	$art_approved 		= '';
+	$art_order 			= '';
+	$order_recieved 	= '';
+	$bill_Code 			= '';
+	$Tracking_Number 	= '';
+	$order_notes 		= '';
+	$grand_total 		= '';
+	$order_shipped 		= '';
+	$prod_name 			= [];
+	$bill_street 		= [];
+	$street1 			= '';
+	$street2 			= '';
+	$bill_city 			= '';
+	if($this->getOrderDetails())	{
+	 	foreach ($this->getOrderDetails() as $order) {
+	 		if($order['id']){
+	 			$id	= $order['id'];
+	 		}
+	 	   	if(isset($order['Sales_Order']['name'])){
+	 	   		$sv_subject = $order['Sales_Order']['name'];
+	 	   	} else {
+	 	   		$sv_subject = '';
+	 	   	}
+	 	   	if($order['Notes']){
+	 			$notes	= $order['Notes'];
+	 		}
+	 	   	if($order['Status']){
+	 	   		$status = $order['Status'];
+	 	   	}
+	 	   	if(isset($order['Account_Name']['name'])){
+				$acc_name = $order['Account_Name']['name'];
+			}
+			if(isset($order['Contact_Name']['name'])){
+				$contact_name = $order['Contact_Name']['name'];
+			}
+			if($order['Phone_Number']){
+				$phno = $order['Phone_Number'];
+			}
+			if(isset($order['Order_Number'])){
+				$order_no = $order['Order_Number'];
+			}
+			if($order['PO_Number']){
+				$sv_po_no = $order['PO_Number'];
+			}
+			if(isset($order['In_Hands'])){
+				$in_hands = $order['In_Hands'];
+			}
+			if(isset($order['product']['product_description'])){
+				$prod_des = $order['product']['product_description'];
+			}
+			if($order['EMail']){
+				$email_id = $order['EMail'];
+			}
+			if($order['Owner']){
+				$sowner = $order['Owner'];
+			}
+			if($order['Order_to_Vendor']){
+				$ordertovendor = $order['Order_to_Vendor'];
+			}
+			if($order['Vendor']){
+				$vendor = $order['Vendor'];
+			}
+			if($order['PI_Number']){
+				$pi_number = $order['PI_Number'];
+			}
+			if($order['Billing_Name']){
+				$bill_name = $order['Billing_Name'];
+			}
+			if($order['Bill_to_Contact']){
+				$bill_contact = $order['Bill_to_Contact'];
+			}
+			if($order['Billing_Street']){
+				$bill_street = $order['Billing_Street'];
+				$street = explode(',', $bill_street);
+				if (count($street) == 1) {
+					$street1 = $street[0];
+				}
+				if (count($street) == 2) {
+					$street1 = $street[0];
+					$street2 = $street[1];
+				}
+			}
+			if($order['Billing_City']){
+				$bill_city = $order['Billing_City'];
+			}
+			if($order['Billing_State']){
+				$bill_state = $order['Billing_State'];
+			}
+			if($order['Billing_Code']){
+				$bill_Code = $order['Billing_Code'];
+			}
+			if($order['Billing_Country']){
+				$bill_country = $order['Billing_Country'];
+			}
+			if($order['Ship_To']){
+				$shipto = $order['Ship_To'];
+			}
+			if($order['Contact_Person']){
+				$contact_person = $order['Contact_Person'];
+			}
+			if($order['Shipping_Street']){
+				$shipping_street = $order['Shipping_Street'];
+			}
+			if($order['Shipping_City']){
+				$shipping_city = $order['Shipping_City'];
+			}
+			if($order['Shipping_State']){
+				$shipping_state = $order['Shipping_State'];
+			}
+			if($order['Shipping_Code']){
+				$shipping_code = $order['Shipping_Code'];
+			}
+			if($order['Shipping_Country']){
+				$shipping_country = $order['Shipping_Country'];
+			}
+			if($order['Adjustment']){
+				$adjustment = $order['Adjustment'];
+			}
+			if($order['Sub_Total']){
+				$sub_total = $order['Sub_Total'];
+			}
+			if($order['Tax']){
+				$ttax = $order['Tax'];
+			}
+			if($order['Grand_Total']){
+				$grand_total = $order['Grand_Total'];
+			}
+			if($order['Discount']){
+				$ddiscount = $order['Discount'];
+			}
+			if($order['Order_Notes']){
+				$order_notes = $order['Order_Notes'];
+			}
+			if($order['Art_and_Order_Sent']){
+				$art_order = $order['Art_and_Order_Sent'];
+			}
+			if($order['Art_and_Order_Approved']){
+				$art_approved = $order['Art_and_Order_Approved'];
+			}
+			if($order['Payment_Received']){
+				$payment_recieved = $order['Payment_Received'];
+			}
+			if($order['Order_Received']){
+				$order_recieved = $order['Order_Received'];
+			}
+			if($order['Paid_in_Full']){
+				$paid_in_full = $order['Paid_in_Full'];
+			}
+			if($order['In_Production']){
+				$production = $order['In_Production'];
+			}
+			if($order['Shipped']){
+				$order_shipped = $order['Shipped'];
+			}
+			if (!empty($order_shipped)) {
+				$order_shipped = 1;
+			} else {
+				$order_shipped = 0;
+			}
+			if($order['Terms_and_Conditions']){
+				$terms = $order['Terms_and_Conditions'];
+			}
+			if($order['Estimated_Ship_Date']){
+				$estimated_date = $order['Estimated_Ship_Date'];
+			}
+			if($order['Tracking_Number']){
+				$Tracking_Number = $order['Tracking_Number'];
+			}
+			if($sv_subject == ''){
+				$sv_subject = $order['Order_Number'];
+			}
+			if(isset($_REQUEST['so_id'])) {
+				$encode_order_id = '?so_id='.$_REQUEST['so_id'];
+				$order_id        = base64_decode($_REQUEST['so_id']); 
+				$order_type		 = 'open';
+			}
+	       if(isset($_REQUEST['inv_id'])) {
+	       		$encode_order_id = '?inv_id='.$_REQUEST['inv_id'];
+		       	$order_id = base64_decode($_REQUEST['inv_id']);
+		       	$order_type= 'closed'; 
+	       }
+	        foreach ($order['Product_Details'] as $soLineItem) {
+				$prod_name[] =$soLineItem['product']['name'];
+				$prod_desc[] =$soLineItem['product_description'];
+				$list_price[] = $soLineItem['list_price'];
+				$quantity[] = $soLineItem['quantity'];
+				$amount[] = $soLineItem['net_total'];
+				$discount[] = $soLineItem['Discount'];
+				$tax[] = $soLineItem['Tax'];
+				$total[] = $soLineItem['total'];
+			}
+			$categories_id = $id;
+			$pdf_id = base64_encode($categories_id);
+		}
+		if ($bill_country == 'United States') {
+			$bill_country_code = 'US';
+		} elseif ($bill_country == 'USA') {
+			$bill_country_code = 'US';
+		} elseif ($bill_country == 'United Kingdom') {
+			$bill_country_code = 'GB';
+		} elseif ($bill_country == 'Canada') {
+			$bill_country_code = 'CA';
+		} elseif ($bill_country == 'Mexico') {
+			$bill_country_code = 'MX';
+		} else {
+			$bill_country_code = 'US';
+		}
+	}
+ ?>
+<?php 
+	if (!$paid_in_full) {
+		?>
+		<div class="zoho_payment_page">
+			<div class="zoho_payment_page_header">
+				<div class="order_po_so_num">
+					<h2>PO# <?php echo __($sv_po_no);?>, SO# <?php echo __($order_no);?></h2>
+				</div>
+				<br>
+				<div class="zoho_payment_page_title">
+					<h3>Payment Information</h3>
+				</div>
+			</div>
+			<br>
+			<div class="zoho_payment_page_content">
+				<div class="container">
+					<div class="row">
+						<form class="form contact" action="<?php echo $this->getUrl('payorder/index
+
+						/payment', ['_secure' => true]);?>" id="zoho_payorder_form" method="post" data-hasrequired="<?php  echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
+							<div class="col-sm-4">
+								<fieldset class="fieldset">
+									<div class="field card_name required">
+										<label class="label" for="card_name"><span><?php  echo __('Name Of Card') ?></span></label>
+										<div class="control">
+											<input name="card_name" id="card_name" title="<?php  echo __('Name Of Card') ?>" class="input-text" type="text" data-validate="{required:true}" value="<?php echo __($acc_name);?>"/>
+										</div>
+									</div>
+									<div class="field street_address required">
+										<label class="label" for="street_address"><span><?php  echo __('Street Address') ?></span></label>
+										<div class="control">
+											<input name="street_address_line1" id="street_address_line1" title="<?php  echo __('Street Address') ?>" class="input-text" type="text" data-validate="{required:true}" value="<?php echo $street1;?>"/>
+											<br><br>
+											<input name="street_address_line2" id="street_address_line2" title="<?php  echo __('Name Of Card') ?>" class="input-text" type="text" data-validate="{required:true}" value="<?php echo $street2;?>"/>
+										</div>
+									</div>
+									<div class="field city required">
+										<label class="label" for="city"><span><?php  echo __('City') ?></span></label>
+										<div class="control">
+											<input name="city" id="city" title="<?php  echo __('City') ?>" class="input-text" type="text" data-validate="{required:true}" value="<?php echo __($bill_city);?>"/>
+										</div>
+									</div>
+									<div class="field state required">
+						               <label class="label" for="state"><span><?php echo __('State') ?></span></label>
+						               <div class="control">
+						                   <select name="state" id="state" data-validate="{required:true, 'validate-select':true}">
+						                       <option value=""><?php echo __('Please Select')?></option>
+							                   <?php
+													foreach ($this->getRegion($bill_country_code) as $state_key => $state_value) {
+														if ($state_key != '0') {
+															?>
+																<option value="<?php echo $state_value['name'];?>"
+																	<?php
+																		if ($state_value['code'] == $bill_state) {
+																			echo 'selected="selected"';
+																		}
+																	?>>
+																	<?php echo $state_value['name']; ?>
+																</option>
+															<?php
+														}
+													}
+												?>
+						               		</select>
+						               </div>
+						            </div>
+						            <div class="field postcode required">
+										<label class="label" for="postcode"><span><?php  echo __('Zip/Postal Code') ?></span></label>
+										<div class="control">
+											<input name="postcode" id="postcode" title="<?php  echo __('Zip/Postal Code') ?>" class="input-text" type="text" data-validate="{required:true}" value="<?php echo __($bill_Code);?>"/>
+										</div>
+									</div>
+									<div class="field country required">
+						               <label class="label" for="country"><span><?php echo __('Country') ?></span></label>
+						               <div class="control">
+						                   <select name="country" id="country" data-validate="{required:true, 'validate-select':true}">
+						                       <option value=""><?php echo __('Please Select')?></option>
+						                       <?php
+													foreach ($this->getCountries() as $country_key => $country_value) {
+														if ($bill_country_code == $country_key) {
+															?>
+															<option value="<?php echo $country_key; ?>"
+																<?php
+																	if ($bill_country_code == $country_key) {
+																		echo 'selected="selected"';
+																	}
+																?>>
+																<?php echo $country_value;?>
+															</option>
+															<?php
+														}
+													}
+												?>
+											</select>
+						               </div>
+						            </div>
+								</fieldset>
+							</div>
+							<div class="col-sm-5">
+								<fieldset class="fieldset">
+									<div class="field contact_no required">
+										<label class="label" for="contact_no"><span><?php  echo __('Phone Number') ?></span></label>
+										<div class="control">
+											<input name="contact_no" id="contact_no" title="<?php  echo __('Phone Number') ?>" class="input-text" type="text" data-validate="{required:true}" value="<?php echo __($phno);?>"/>
+										</div>
+									</div>
+									<div class="field email_address required">
+										<label class="label" for="email_address"><span><?php  echo __('Email Payment Reciept to') ?></span></label>
+										<div class="control">
+											<input name="email_address" id="email_address" title="<?php  echo __('Email Payment Reciept to') ?>" class="input-text" type="text" data-validate="{required:true}" value="<?php echo $email_id;?>"/>
+										</div>
+									</div>
+									<br><br><br>
+									<div class="field card_number required">
+										<label class="label" for="card_number"><span><?php  echo __('Card Number') ?></span></label>
+										<div class="control">
+											<input name="card_number" id="card_number" title="<?php  echo __('Card Number') ?>" class="input-text" type="text" data-validate="{required:true}"/>
+										</div>
+									</div>
+									<div class="field card_expire" style="width: 50%;float: left;margin-right: 1%;">
+										<label class="label" for="card_expire"><span><?php  echo __('Expiration Date') ?></span></label>
+										<div class="control">
+											<input name="cc_expires_month" id="cc_expires_month" placeholder="<?php  echo __('MM') ?>" class="input-text" type="number" style="width: 45%;float: left;margin-right: 1%;"/>
+
+											<input name="cc_expires_year" id="cc_expires_year" title="<?php  echo __('YYYY') ?>" placeholder="<?php  echo __('YYYY') ?>" class="input-text" type="number" style="width: 45%;float: right;margin-right: 1%;" />
+										</div>
+										<span id="expire_month_error" style="display: none;color: #e02b27;float: left;width: 47%;margin-left: 6%"></span>
+
+										<span id="expire_year_error" style="display: none;color: #e02b27;width: 45%;float: right;margin-right: 1%"></span>
+									</div>
+									<div class="field cvv_no required" style="width: 48%;float: right;margin-right: 1%;">
+										<label class="label" for="cvv_no"><span><?php  echo __('Security Code') ?></span></label>
+										<div class="control">
+											<input name="cvv_no" id="cvv_no" class="input-text" type="number" data-validate="{required:true}" style="width: 100%;float: left;margin-right: 1%;"/>
+										</div>
+									</div>
+									<div class="field grand_total required" >
+										<label>Order Total: $<?php echo number_format($grand_total,2); ?></label>
+
+										<input type="hidden" name="grand_total" value="<?php echo $grand_total;?>">
+
+										<input type="hidden" name="po_no" value="<?php echo $sv_po_no;?>">
+
+										<input type="hidden" name="order_no" value="<?php echo $order_no;?>">
+
+										<input type="hidden" name="acc_name" value="<?php echo $acc_name;?>">
+
+										<input type="hidden" name="order_id" value="<?php echo $order_id;?>">
+
+										<input type="hidden" name="encode_order_id" value="<?php echo $encode_order_id;?>">
+
+										<input type="hidden" name="order_shipped" value="<?php echo $order_shipped;?>">
+
+										<input type="hidden" name="order_notes" value="<?php echo $order_notes;?>">
+									</div>
+									<div class="actions-toolbar">
+										<div class="primary">
+											<button type="submit" title="<?php  echo __('Submit Payment') ?>" class="action submit primary" id="custom_btn">
+												<span><?php  echo __('Submit Payment') ?></span>
+											</button>
+										</div>
+									</div>
+								</fieldset>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="download_order" style="margin: 0px 0px 26px 46%;">
+				<a href="<?php echo $this->getBaseUrl()."order_tracker_view/index/downloadpdf?so_id=".$pdf_id; ?>"  ><button class="order_pdf"><strong>Download Order</strong></button></a>
+				<?php 
+					$Attachment = $this->getAttachment($id);
+					if (count($Attachment->getData()) <= 1) {
+						foreach ($this->getAttachment($id) as $key => $Attachmentdata) {
+						?>
+							<a href="<?php echo $this->getMediaUrl().'nvspromo/artwork/pdf/'.$Attachmentdata->getPdf(); ?>" download="<?php echo $Attachmentdata->getPdf(); ?>"><button class="order_pdf"><strong>Download Artwork</strong></button></a>
+						<?php
+						}
+					}
+				?>
+			</div>
+			<div class="zoho_payment_page_footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-3">
+							<div class="order_details header">
+								<h3>Order summary</h3>
+							</div>
+							<div class="order_details content">
+								<table>
+									<tr>
+				                        <td style="border-bottom:1px solid #ccc" colspan="5"></td>
+				                    </tr>
+									<?php  
+				                        $count_value = count($prod_name);
+				                        $no =1;
+				                        for($i=0; $i<$count_value;$i++) { 
+				                    		?>
+						                    <tr>
+						                        <td  align="left" ><span class="sc_cbold">
+						                        	<?php if(empty ($prod_name[$i])){ echo "--";} else {echo $prod_name[$i];}?></span><br /><?php if(empty ($prod_desc[$i])){ echo "--";} else {echo nl2br($prod_desc[$i]);}?>
+						                        </td>
+						                        <td  height="17" align="center" valign="top" >
+						                        	<span class="sc_cbold"><?php if(empty ($quantity[$i])){ echo "--";} else {echo round($quantity[$i]);}?></span>
+						                        </td>
+						                        <td  align="center" valign="top" ><span class="sc_cbold">
+						                        	<?php if(empty ($list_price[$i])){ echo "0";} else {echo '$'.number_format($list_price[$i],2);}?></span>
+						                        </td>
+						                        <td align="right" valign="top" >
+						                        	<span class="sc_cbold"><?php if(empty ($total[$i])){ echo "0";} else {echo '$' . number_format($total[$i],2);}?></span>
+						                        </td>
+						                    </tr>
+				                    		<?php  
+				                    		$no++; 
+				                    	} 
+				                    ?>
+				                    <tr>
+				                    	<td>Order Total</td>
+				                    	<td></td>
+				                    	<td></td>
+				                    	<td><?php echo __('$'.number_format($grand_total,2));?></td>
+				                    </tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="order_details header">
+								<h3>Ship To: </h3>
+							</div>
+							<div class="order_details header">
+								<table>
+									<tr>
+				                        <td style="border-bottom:1px solid #ccc" colspan="5"></td>
+				                    </tr>
+				                    <tr>
+				                    	<td>
+				                    		<p>
+				                    			<?php echo $contact_name;?><br>
+												<?php echo $shipping_street;?><br>
+												<?php echo $shipping_city;?><?php echo $shipping_state;?><br>
+												<?php echo $shipping_code;?><br>
+												<?php echo $shipping_country;?>
+											</p>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="order_details header">
+								<h3>Artwork Confirmation</h3>
+							</div>
+							<div class="order_details header">
+								<table>
+									<tr>
+				                        <td style="border-bottom:1px solid #ccc" colspan="5"></td>
+				                    </tr>
+				                    <tr>
+				                    	<td>
+				                    		<?php 
+												$Attachment = $this->getAttachment($id);
+												if (count($Attachment->getData()) >= 1) {
+													foreach ($this->getAttachment($id) as $key => $Attachmentdata) {
+														?>
+														<div>
+															<a href="<?php echo $this->getMediaUrl().'nvspromo/artwork/pdf/'.$Attachmentdata->getPdf(); ?>">
+																<img src="<?php echo $this->getMediaUrl().'nvspromo/artwork/image/thumb/'.$Attachmentdata->getThumb_image(); ?>" alt="artwork" />
+															</a>
+														</div>
+														<?php 
+													}
+												} else {
+													?>
+													<div>
+														<img src="<?php echo $this->getMediaUrl().'nvspromo/no-thumb.png'; ?>" alt="artwork">
+													</div>
+													<?php
+												}
+											?>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+		<?php 
+	} else {
+		echo '<h2>Order payment is completed for this Order : '.$order_id.'</h2>';
+	}
+?>
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){
+	$("#cc_expires_month").keyup(function(){
+		$('#expire_month_error').hide();
+	});
+	$("#cc_expires_year").keyup(function(){
+		$('#expire_year_error').hide();
+	});
+	$("#zoho_payorder_form").submit(function(){
+		var expire_month = $('#cc_expires_month').val();
+  		var expire_month_lenght = $('#cc_expires_month').val().length;
+
+  		var expire_year = $('#cc_expires_year').val();
+  		var expire_year_length = $('#cc_expires_year').val().length;
+
+  		var  i = 0;
+  		var currentTime = new Date();
+  		var year = currentTime.getFullYear();
+
+  		if (expire_month_lenght != 2) {
+  			$('#expire_month_error').html('');
+  			$('#expire_month_error').html('Please enter valid month For Ex.12');
+  			$('#expire_month_error').show();
+  			i++;
+  		} else if(expire_month <= '00'){
+  			$('#expire_month_error').html('');
+  			$('#expire_month_error').html('Please enter valid month Between 01 to 12 For Ex.12');
+  			$('#expire_month_error').show();
+  			i++;
+  		} else if(expire_month > 12){
+  			$('#expire_month_error').html('');
+  			$('#expire_month_error').html('Please enter valid month Between 01 to 12 For Ex.12');
+  			$('#expire_month_error').show();
+  			i++;
+  		}  else {
+  			$('#expire_month_error').html('');
+  			$('#expire_month_error').hide();
+  		}
+
+  		if (expire_year_length != 4) {
+  			$('#expire_year_error').html('');
+  			$('#expire_year_error').html('Please enter proper year for Ex. '+year+'.');
+  			$('#expire_year_error').show();
+  			i++;
+  		} else if(expire_year == '0000'){
+  			$('#expire_year_error').html('');
+  			$('#expire_year_error').html('Please enter proper year for Ex. '+year+'.');
+  			$('#expire_year_error').show();
+  			i++;
+  		} else if(expire_year > 2037){
+  			$('#expire_year_error').html('');
+  			$('#expire_year_error').html('Please enter year less than 2037 for Ex. '+year+'.');
+  			$('#expire_year_error').show();
+  			i++;
+  		} else if(expire_year < year){
+  			$('#expire_year_error').html('');
+  			$('#expire_year_error').html('Please enter year more than '+year+' for Ex. '+year+'.');
+  			$('#expire_year_error').show();
+  			i++;
+  		} else {
+  			$('#expire_year_error').html('');
+  			$('#expire_year_error').hide();
+  		}
+
+  		if (i == 1) {
+  			return false;
+  		} else {
+  			return true;
+  		}
+	});
+});
+</script>
+<style type="text/css">
+	.page-title-wrapper{
+		display: none;
+	}
+</style>

@@ -1,0 +1,27 @@
+<?php
+ /**
+ *
+ * @author        Viha Digital Commerce Team <naeem@vdcstore.com>.
+ * @copyright     Copyright(c) 2020 Viha Digital Commerce (https://www.vihadigitalcommerce.com/)
+ * @link          https://www.vihadigitalcommerce.com/
+ * @date          19/07/2021
+ */
+?>
+<div class="full">
+	<form name="test-form" id="login" method="post">
+		<div class="login_frm"> 
+			<h1 style="color:#0066cc; text-transform:none;">Order Manager</h1><br/>
+			<input type="text" name="sales_id" id="sales_id" placeholder="Purchase Order Number" class="input-text required-entry"  style="width:400px; height:40px"  autocomplete="off" required/>
+		    <br/>
+		    <div id="login_error"></div></br>
+		    <p class="note">PO# must be exact match to the number displayed on your PO.</br>Letters are case sensitive.</p>
+		    <br />
+			<a class="login_btn" style="padding:10px 80px; border-radius:3px">Log In</a>
+		</div>
+	</form>
+	<div class="login_content"> 
+		<?php
+			echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('order_login_content')->toHtml();
+		?>
+	</div>
+</div>

@@ -1,0 +1,59 @@
+a#pay_order_link {
+	background: #23B14D none repeat scroll 0 0;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	color: #fff;
+	float: left;
+	height: 45px;
+	margin-top: -20px;
+	padding: 8px;
+	text-align: center;
+	width: 200px;
+	margin-left: 2%;
+	font-size: 18px;
+}
+.row{ width:100%; float:left; margin-bottom:30px}
+.table_data table td {padding:0 5px !important}
+.open_order{width:26.5%; float:left; margin-left:2%;}
+.order_image{width:26%; float:left;}
+.order_notes {border: 1px solid #ccc; border-radius: 5px; float: left; padding: 5px; width: 45.5%;height: 155px;}
+.attri_content{ float:left; margin-top:15px; padding:10px; border:1px solid #666666;border-radius:3px; margin-right:10px; margin-left: 2%;}
+.table_data .orlogin strong { float: right; margin-top: -22px;} 
+textarea{border:none !important; border-top:1px solid #ccc !important;    color: #1462ce !important;}
+.main-container{padding-top:1px !important;}
+.ordertrackerview-index-index .contentText { margin-top: 25px;} 
+.box_blue{margin-top:3px !important; min-height: 156px !important;}
+.box_blue h2 {padding-top: 23px !important;} 
+.row.margin_row {margin-top: 35px;}
+.table_data > h2 {margin: 12px 0 0; width: 60%;margin-top:-20px;}
+.table_data{ width:100%;float:left;  }
+.border{ border:1px solid #999999; border-radius:3px;float:left; margin-top:5px;padding:10px 5px; z-index:100; width:100%;}
+.table_data{width:71.2%; margin-top: 0px;} 
+.w3-progress-container {
+    width: 85%;
+    height: 1.5em; 
+    position: relative;
+    background-color: #ccc;
+    margin-top:2px;
+    border-radius: 10px;
+}
+
+.w3-progressbar {
+    background-color: #757575;
+    height: 100%;
+    position: absolute;
+    line-height: inherit;
+    border-radius: 10px;
+    text-align:center;
+}
+.w3-green, .w3-hover-green:hover {
+    color: #fff!important;
+    background-color: #4CAF50!important;
+}
+.cl_4{
+    height: 267px;
+}
+#pay_form {
+	padding-left: 30px;
+	margin-top: -15px;
+}

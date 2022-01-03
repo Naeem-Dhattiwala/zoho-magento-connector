@@ -1,0 +1,312 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Customer\Helper\Address;
+
+/** @var \Magento\Customer\Block\Form\Register $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+
+/** @var Magento\Customer\Helper\Address $addressHelper */
+$addressHelper = $block->getData('addressHelper');
+/** @var \Magento\Directory\Helper\Data $directoryHelper */
+$directoryHelper = $block->getData('directoryHelper');
+$formData = $block->getFormData();
+?>
+<?php $displayAll = $block->getConfig('general/region/display_all'); ?>
+<?= $block->getChildHtml('form_fields_before') ?>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.register.extra') ?>
+<div class="order_tracker_view_registartion_form">
+    <form class="form create account form-create-account"
+          action="<?= $escaper->escapeUrl($block->getPostActionUrl()) ?>"
+          method="post"
+          id="form-validate"
+          enctype="multipart/form-data"
+          autocomplete="off">
+        <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+        <fieldset class="fieldset create info">
+            <legend class="legend"><span><?= $escaper->escapeHtml(__('Personal Information')) ?></span></legend><br>
+            <input type="hidden" name="success_url" value="<?= $escaper->escapeUrl($block->getSuccessUrl()) ?>">
+            <input type="hidden" name="error_url" value="<?= $escaper->escapeUrl($block->getErrorUrl()) ?>">
+            <div class="field_main_bg">
+            <div class="field">
+                <label for="customer_comapany" class="label"><span><?= $escaper->escapeHtml(__('Company')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="customer_comapany"
+                           id="customer_comapany"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getCustomer_comapany()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Company')) ?>"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field fields first&lastname">
+            <?= $block->getLayout()
+                    ->createBlock(\Magento\Customer\Block\Widget\Name::class)
+                    ->setObject($formData)
+                    ->setForceUseCustomerAttributes(true)
+                    ->toHtml() ?>
+            </div>
+            <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
+            <?php if ($_dob->isEnabled()): ?>
+                <?= $_dob->setDate($formData->getDob())->toHtml() ?>
+            <?php endif ?>
+
+            <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
+            <?php if ($_taxvat->isEnabled()): ?>
+                <?= $_taxvat->setTaxvat($formData->getTaxvat())->toHtml() ?>
+            <?php endif ?>
+
+            <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
+            <?php if ($_gender->isEnabled()): ?>
+                <?= $_gender->setGender($formData->getGender())->toHtml() ?>
+            <?php endif ?>
+            <div class="field">
+                <label for="customer_telephone" class="label"><span><?= $escaper->escapeHtml(__('Phone')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="customer_telephone"
+                           autocomplete="off"
+                           id="customer_telephone"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getCustomer_telephone()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'>
+                </div>
+            </div>
+            <div class="field asi_field">
+                <label for="association_id" class="label"><span><?= $escaper->escapeHtml(__('ASI')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="association_id"
+                           autocomplete="off"
+                           id="association_id"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getAssociation_id()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('ASI')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'>
+                </div>
+            </div>
+            <div class="field sage_id_field" style="float: right;">
+                <label for="sage_id" class="label"><span><?= $escaper->escapeHtml(__('Sage Id')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="sage_id"
+                           autocomplete="off"
+                           id="sage_id"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getSage_id()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'>
+                </div>
+            </div>
+            <div class="field reseller_id_field">
+                <label for="reseller_id" class="label"><span><?= $escaper->escapeHtml(__('Reseller Id')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="reseller_id"
+                           autocomplete="off"
+                           id="reseller_id"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getReseller_Id()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Reseller Id')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'>
+                </div>
+            </div>
+            <div class="field required">
+                <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
+                <div class="control">
+                    <input type="email"
+                           name="email"
+                           autocomplete="email"
+                           id="email_address"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'
+                           data-validate="{required:true, 'validate-email':true}">
+                </div>
+            </div>
+            <div class="field password required">
+                <label for="password" class="label"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
+                <div class="control">
+                    <input type="password" name="password" id="password"
+                           title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>"
+                           class="input-text"
+                           data-password-min-length="<?=
+                            $escaper->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+                           data-password-min-character-sets="<?=
+                            $escaper->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
+                           data-validate="{required:true, 'validate-customer-password':true}"
+                           autocomplete="off">
+                    <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+                        <div id="password-strength-meter" class="password-strength-meter">
+                            <?= $escaper->escapeHtml(__('Password Strength')) ?>:
+                            <span id="password-strength-meter-label" data-role="password-strength-meter-label">
+                                <?= $escaper->escapeHtml(__('No Password')) ?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="field confirmation required">
+                <label for="password-confirmation" class="label">
+                    <span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="password"
+                           name="password_confirmation"
+                           title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>"
+                           id="password-confirmation"
+                           class="input-text"
+                           data-validate="{required:true, equalTo:'#password'}"
+                           autocomplete="off">
+                </div>
+            </div>
+            </div>
+            <input type="hidden" name="order_tracker_view" value="<?=$_SERVER['QUERY_STRING']?>">
+            <input type="hidden" name="order_tracker_view_register" value="<?=$_SERVER['QUERY_STRING']?>">
+            <div class="actions-toolbar" style="border: none;background: #ffff;">
+                <div class="primary">
+                    <button type="submit"
+                        class="action submit primary"
+                        title="<?= $escaper->escapeHtmlAttr(__('Create an Account')) ?>">
+                        <span><?= $escaper->escapeHtml(__('Create an Account')) ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div class="order_tracker_view_registartion_image" style="display:none">
+    <img class="custom_registration_form_after_complete_img" src="<?php echo $this->getUrl('pub/media/nvspromo/').'registration_complete.JPG';?>">
+</div>
+<?php $ignore = /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null';
+$scriptString = <<<script
+require([
+    'jquery',
+    'mage/mage'
+], function($){
+
+    var dataForm = $('#form-validate');
+    var ignore = {$ignore};
+
+    dataForm.mage('validation', {
+script;
+if ($_dob->isEnabled()):
+    $scriptString .= <<<script
+        errorPlacement: function(error, element) {
+            if (element.prop('id').search('full') !== -1) {
+                var dobElement = $(element).parents('.customer-dob'),
+                    errorClass = error.prop('class');
+                error.insertAfter(element.parent());
+                dobElement.find('.validate-custom').addClass(errorClass)
+                    .after('<div class="' + errorClass + '"></div>');
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        ignore: ':hidden:not(' + ignore + ')'
+script;
+else:
+    $scriptString .= <<<script
+        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+script;
+endif;
+$scriptString .= <<<script
+    }).find('input:text').attr('autocomplete', 'off');
+});
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+<?php if ($block->getShowAddressFields()): ?>
+    <?php
+    $regionJson = /* @noEscape */ $directoryHelper->getRegionJson();
+    $regionId = (int) $formData->getRegionId();
+    $countriesWithOptionalZip = /* @noEscape */ $directoryHelper->getCountriesWithOptionalZip(true);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= /* @noEscape */ $displayAll ? 'true' : 'false' ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": {$regionJson},
+                "defaultRegion": "{$regionId}",
+                "countriesWithOptionalZip": {$countriesWithOptionalZip}
+            }
+        }
+    }
+</script>
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        ".field.password": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-create-account"
+            }
+        },
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "form-validate"
+            }
+        }
+    }
+</script>
+<script>
+require(['jquery','mage/url','mage/mage'],function($,url) {
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    url.setBaseUrl(BASE_URL);
+    var baseurl = url.build('');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    if (vars == 'my_account') {
+        $('#my_account_login').addClass("current");
+        $('#my_account_login_a').replaceWith($('<strong>' + 'My Account' + '</strong>'));
+        if (vars['my_account'] == 'afterregister/')  {
+            $('.order_tracker_view_registartion_form').hide();
+            $('.order_tracker_view_registartion_image').show();
+            window.setTimeout(function() {
+                window.location.href = baseurl;
+            }, 7000);
+        }
+    }
+    if (vars == 'my_orders') {
+        $('#my_order_login').addClass("current");
+        $('#my_order_login_a').replaceWith($('<strong>' + 'My Orders' + '</strong>'));
+        if (vars['my_orders'] == 'afterregister/')  {
+            $('.order_tracker_view_registartion_form').hide();
+            $('.order_tracker_view_registartion_image').show();
+            window.setTimeout(function() {
+                window.location.href = baseurl;
+            }, 7000);
+        }
+    }
+    if (vars == 'my_invoices') {
+        $('#my_invoice_login').addClass("current");
+        $('#my_invoice_login_a').replaceWith($('<strong>' + 'My Invoices' + '</strong>'));
+        if (vars['my_invoices'] == 'afterregister/')  {
+            $('.order_tracker_view_registartion_form').hide();
+            $('.order_tracker_view_registartion_image').show();
+            window.setTimeout(function() {
+                window.location.href = baseurl;
+            }, 7000);
+        }
+    }
+});
+</script>

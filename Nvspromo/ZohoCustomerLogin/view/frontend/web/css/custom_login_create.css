@@ -1,0 +1,22 @@
+.full{width:100%; float:left; }
+.login_content{margin:0 auto; padding:20px 0; width:60%; color:#000}
+.login_content p{ margin-bottom:10px;}
+.login_content ul { list-style:inherit !important;margin-bottom:10px; padding-left:20px;}
+.login_content h3 { font-weight:bold; text-transform:none; color:#dc2426 !important }
+.login_btn{background:#0099cc;border:1px solid #ccc;color:#fff;width: 200px;height:40px; border-radius:3px; }
+a.login_btn:hover{color:#fff !important; text-decoration:none !important; cursor:pointer !important}
+.note {margin-bottom: 10px;}
+#login_error{display:none; color:red; margin: 0 auto; width:400px;}
+
+.div_incorrect > p{float:left !important; font-size:12px !important; width: 91% !important;}
+#login_error .div_incorrect{width:100% !important;  min-width: 100% !important; margin-left: 0px !important;}
+.div_incorrect > img{width:7% !important;}
+
+@media only screen and (min-width: 990px){
+.login_btn{ margin-left:20px;}
+}
+.form .create .account .form-create-account{background-color: #fafafa; border: 1px solid #ddd; width: 48.8%; float: right; margin-left: 22px; min-height: 868px; padding: 30px;}
+.register_po_login{background-color: #fafafa; border: 1px solid #ddd; width: 48.8%; float: right; margin-left: -3px; min-height: 288px; padding: 30px;}
+.custom_registration_form_after_complete{float: left; border: 1px solid #ddd; margin-left: -16px;}
+.register_po_login_content{float: left;}
+.custom_registration_form_after_complete_img{margin-left: 80px;}

@@ -1,0 +1,371 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Customer\Helper\Address;
+
+/** @var \Magento\Customer\Block\Form\Register $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+
+/** @var Magento\Customer\Helper\Address $addressHelper */
+$addressHelper = $block->getData('addressHelper');
+/** @var \Magento\Directory\Helper\Data $directoryHelper */
+$directoryHelper = $block->getData('directoryHelper');
+$formData = $block->getFormData();
+?>
+<?php $displayAll = $block->getConfig('general/region/display_all'); ?>
+<?= $block->getChildHtml('form_fields_before') ?>
+<?php /* Extensions placeholder */ ?>
+<?= $block->getChildHtml('customer.form.register.extra') ?>
+<div class="custom_registration_form_bg">
+<div class="custom_registration_form">
+    <form class="form create account form-create-account"
+          action="<?= $escaper->escapeUrl($block->getPostActionUrl()) ?>"
+          method="post"
+          id="form-validate"
+          enctype="multipart/form-data"
+          autocomplete="off">
+        <?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+        <fieldset class="fieldset create info">
+            <div class="block-title">
+                <strong id="block-new-customer-heading" role="heading" aria-level="2"><?= $escaper->escapeHtml(__('New Customers, Register Here')) ?></strong>
+            </div>
+            <input type="hidden" name="success_url" value="<?= $escaper->escapeUrl($block->getSuccessUrl()) ?>">
+            <input type="hidden" name="error_url" value="<?= $escaper->escapeUrl($block->getErrorUrl()) ?>">
+            <p><?= $escaper->escapeHtml(__('Register to view net, coded pricing and your order history and artwork.'))?></p>
+            <div class="field_main_bg">
+            <div class="field">
+                <label for="customer_comapany" class="label"><span><?= $escaper->escapeHtml(__('Company Name')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="customer_comapany"
+                           id="customer_comapany"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getCustomer_comapany()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Company')) ?>"
+                           class="input-text">
+                </div>
+            </div>
+            <div class="field fields first&lastname">
+                <?= $block->getLayout()
+                        ->createBlock(\Magento\Customer\Block\Widget\Name::class)
+                        ->setObject($formData)
+                        ->setForceUseCustomerAttributes(true)
+                        ->toHtml() ?>
+            </div>
+
+            <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
+            <?php if ($_dob->isEnabled()): ?>
+                <?= $_dob->setDate($formData->getDob())->toHtml() ?>
+            <?php endif ?>
+
+            <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
+            <?php if ($_taxvat->isEnabled()): ?>
+                <?= $_taxvat->setTaxvat($formData->getTaxvat())->toHtml() ?>
+            <?php endif ?>
+
+            <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
+            <?php if ($_gender->isEnabled()): ?>
+                <?= $_gender->setGender($formData->getGender())->toHtml() ?>
+            <?php endif ?>
+            <div class="field">
+                <label for="customer_telephone" class="label"><span><?= $escaper->escapeHtml(__('Phone')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="customer_telephone"
+                           autocomplete="off"
+                           id="customer_telephone"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getCustomer_telephone()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'>
+                </div>
+            </div>
+            <div class="field asi_field">
+                <label for="association_id" class="label"><span><?= $escaper->escapeHtml(__('ASI')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="association_id"
+                           autocomplete="off"
+                           id="association_id"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getAssociation_id()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('ASI')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'>
+                </div>
+            </div>
+            <div class="field sage_id_field" style="float: left;">
+                <label for="sage_id" class="label"><span><?= $escaper->escapeHtml(__('Sage Id')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="sage_id"
+                           autocomplete="off"
+                           id="sage_id"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getSage_id()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'>
+                </div>
+            </div>
+            <div class="field reseller_id_field">
+                <label for="reseller_id" class="label"><span><?= $escaper->escapeHtml(__('Reseller Id')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="reseller_id"
+                           autocomplete="off"
+                           id="reseller_id"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getReseller_Id()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Reseller Id')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'>
+                </div>
+            </div>
+            <div class="field required">
+                <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
+                <div class="control">
+                    <input type="email"
+                           name="email"
+                           autocomplete="email"
+                           id="email_address"
+                           value="<?= $escaper->escapeHtmlAttr($formData->getEmail()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'
+                           data-validate="{required:true, 'validate-email':true}">
+                </div>
+            </div>
+            <div class="field password required">
+                <label for="password" class="label"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
+                <div class="control">
+                    <input type="password" name="password" id="password"
+                           title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>"
+                           class="input-text"
+                           data-password-min-length="<?=
+                            $escaper->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+                           data-password-min-character-sets="<?=
+                            $escaper->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
+                           data-validate="{required:true, 'validate-customer-password':true}"
+                           autocomplete="off">
+                    <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+                        <div id="password-strength-meter" class="password-strength-meter">
+                            <?= $escaper->escapeHtml(__('Password Strength')) ?>:
+                            <span id="password-strength-meter-label" data-role="password-strength-meter-label">
+                                <?= $escaper->escapeHtml(__('No Password')) ?>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field confirmation required">
+                <label for="password-confirmation" class="label">
+                    <span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="password"
+                           name="password_confirmation"
+                           title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>"
+                           id="password-confirmation"
+                           class="input-text"
+                           data-validate="{required:true, equalTo:'#password'}"
+                           autocomplete="off">
+                </div>
+            </div>
+            </div>
+            <input type="hidden" name="order_tracker_view_register" value="registration">
+            <div class="actions-toolbar" style="border: none; background: #ffff;">
+                <div class="primary">
+                    <button type="submit"
+                            class="action submit primary"
+                            title="<?= $escaper->escapeHtmlAttr(__('Create an Account')) ?>">
+                        <span><?= $escaper->escapeHtml(__('Create an Account')) ?></span>
+                    </button>
+                </div>
+            </div>
+        </fieldset>
+        <?php if ($block->getShowAddressFields()): ?>
+            <?php $cityValidationClass = $addressHelper->getAttributeValidationClass('city'); ?>
+            <?php $postcodeValidationClass = $addressHelper->getAttributeValidationClass('postcode'); ?>
+            <?php $regionValidationClass = $addressHelper->getAttributeValidationClass('region'); ?>
+            <fieldset class="fieldset address">
+                <legend class="legend"><span><?= $escaper->escapeHtml(__('Address Information')) ?></span></legend><br>
+                <input type="hidden" name="create_address" value="1" />
+
+                <?php $_company = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Company::class) ?>
+                <?php if ($_company->isEnabled()): ?>
+                    <?= $_company->setCompany($formData->getCompany())->toHtml() ?>
+                <?php endif ?>
+
+                <?php $_telephone = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Telephone::class) ?>
+                <?php if ($_telephone->isEnabled()): ?>
+                    <?= $_telephone->setTelephone($formData->getTelephone())->toHtml() ?>
+                <?php endif ?>
+
+                <?php $_fax = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Fax::class) ?>
+                <?php if ($_fax->isEnabled()): ?>
+                    <?= $_fax->setFax($formData->getFax())->toHtml() ?>
+                <?php endif ?>
+
+                <?php
+                    $_streetValidationClass = $addressHelper->getAttributeValidationClass('street');
+                ?>
+                <?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes');?>
+                <?php if ($addressAttributes): ?>
+                    <?php $addressAttributes->setEntityType('customer_address'); ?>
+                    <?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]');?>
+                    <?php $block->restoreSessionData($addressAttributes->getMetadataForm(), 'address');?>
+                    <?= $addressAttributes->setShowContainer(false)->toHtml() ?>
+                <?php endif;?>
+                <input type="hidden" name="default_billing" value="1">
+                <input type="hidden" name="default_shipping" value="1">
+                <div class="primary">
+                <button type="submit"
+                        class="action submit primary"
+                        title="<?= $escaper->escapeHtmlAttr(__('Create an Account')) ?>">
+                    <span><?= $escaper->escapeHtml(__('Create an Account')) ?></span>
+                </button>
+            </div>
+            </fieldset>
+        <?php endif; ?>
+    </form>
+</div>
+<div class="custom_registration_form_after_complete" style="display:none;">
+        <div class="form create account form-create-account">
+            <img class="custom_registration_form_after_complete_img" src="<?php echo $this->getUrl('pub/media/nvspromo/').'registration_complete.JPG';?>">
+        </div>
+</div>
+<div class="register_po_login">
+    <div class="block block-new-customer">
+        <div class="block-title">
+            <strong id="block-new-customer-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Order Tracker and Payment Manager')) ?></strong>
+        </div>
+        <div class="block-content" aria-labelledby="block-new-customer-heading">
+            <p><?= $block->escapeHtml(__('PO# must be exact match to the number displayed on your PO. Letters are case sensitive')) ?></p>
+            <form name="test-form" id="order_login" method="post">
+            <div class="login_frm required">
+                <label for="pass" class="label"><span><?= $block->escapeHtml(__('Purchase Order Login')) ?></span></label>
+                <input type="text" name="sales_id" style="width: 311px;" id="sales_id" placeholder="Purchase Order Number" class="input-text required-entry" autocomplete="off" required/>
+                <br/>
+                <div id="login_error"></div>
+                <br />
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <input type="submit" name="submit" class="po_login_submit_button" id="po_login_btn" value="<?= $block->escapeHtml(__('Login')) ?>">
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+</div>
+<br/>
+<div class="register_po_login_content">
+    <div class="login_content"> 
+        <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('order_login_content')->toHtml(); ?>
+    </div>
+</div>
+<?php $ignore = /* @noEscape */ $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null';
+$scriptString = <<<script
+require([
+    'jquery',
+    'mage/mage'
+], function($){
+
+    var dataForm = $('#form-validate');
+    var ignore = {$ignore};
+
+    dataForm.mage('validation', {
+script;
+if ($_dob->isEnabled()):
+    $scriptString .= <<<script
+        errorPlacement: function(error, element) {
+            if (element.prop('id').search('full') !== -1) {
+                var dobElement = $(element).parents('.customer-dob'),
+                    errorClass = error.prop('class');
+                error.insertAfter(element.parent());
+                dobElement.find('.validate-custom').addClass(errorClass)
+                    .after('<div class="' + errorClass + '"></div>');
+            }
+            else {
+                error.insertAfter(element);
+            }
+        },
+        ignore: ':hidden:not(' + ignore + ')'
+script;
+else:
+    $scriptString .= <<<script
+        ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+script;
+endif;
+$scriptString .= <<<script
+    }).find('input:text').attr('autocomplete', 'off');
+});
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+<?php if ($block->getShowAddressFields()): ?>
+    <?php
+    $regionJson = /* @noEscape */ $directoryHelper->getRegionJson();
+    $regionId = (int) $formData->getRegionId();
+    $countriesWithOptionalZip = /* @noEscape */ $directoryHelper->getCountriesWithOptionalZip(true);
+    ?>
+<script type="text/x-magento-init">
+    {
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= /* @noEscape */ $displayAll ? 'true' : 'false' ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": {$regionJson},
+                "defaultRegion": "{$regionId}",
+                "countriesWithOptionalZip": {$countriesWithOptionalZip}
+            }
+        }
+    }
+</script>
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        ".field.password": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-create-account"
+            }
+        },
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "form-validate"
+            }
+        }
+    }
+</script>
+
+<script>
+require([
+ 'jquery',
+ 'mage/url',
+ 'mage/mage'
+], function($, url){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    url.setBaseUrl(BASE_URL);
+    var baseurl = url.build('');
+    for(var i = 0; i < hashes.length; i++)
+    {
+        hash = hashes[i].split('=');
+        vars.push(hash[0]);
+        vars[hash[0]] = hash[1];
+    }
+    if (vars == "afterregister/") {
+        $('.custom_registration_form').hide();
+        $('.custom_registration_form_after_complete').show();
+        window.setTimeout(function() {
+            window.location.href = baseurl;
+        }, 7000);
+    }
+});
+</script>

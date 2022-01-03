@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Nvspromo_TrackOrderView::css/customerlogincreate.css" />
+	</head>
+	<body>
+		<referenceContainer name="sidebar.additional">
+            <block class="Magento\Customer\Block\Form\Login" name="catalog.compare.sidebar" template="Nvspromo_TrackOrderView::index/sidebar_links.phtml" after='catalog.compare.sidebar' />
+        </referenceContainer>
+		<referenceContainer name="content">
+			<container name="customer.login.container" label="Customer Login Container" htmlTag="div" htmlClass="login-container">
+                <block class="Magento\Customer\Block\Form\Register" name="customer_form_login" template="Nvspromo_TrackOrderView::form/register.phtml">
+                </block>
+            </container>
+		</referenceContainer>
+	</body>
+</page>

@@ -1,0 +1,27 @@
+<div class="block block-new-customer">
+    <div class="block-title">
+        <strong id="block-new-customer-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Order Tracker and Payment Manager')) ?></strong>
+    </div>
+    <div class="block-content" aria-labelledby="block-new-customer-heading">
+        <p><?= $block->escapeHtml(__('PO# must be exact match to the number displayed on your PO. Letters are case sensitive')) ?></p>
+        <form name="test-form" id="order_login" method="post">
+			<div class="login_frm required">
+				<label for="pass" class="label"><span><?= $block->escapeHtml(__('Purchase Order Login')) ?></span></label>
+				<input type="text" name="sales_id" style="width: 311px;" id="sales_id" placeholder="Purchase Order Number" class="input-text required-entry" autocomplete="off" required/>
+			    <br/>
+			    <div id="login_error"></div>
+			    <br />
+				<div class="actions-toolbar">
+	            	<div class="primary">
+						<input type="submit" name="submit" class="po_login_submit_button" id="po_login_btn" value="<?= $block->escapeHtml(__('Login')) ?>">
+					</div>
+				</div>
+			</div>
+		</form>
+    </div>
+</div>
+<div class="login_content"> 
+		<?php
+			echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('order_login_content')->toHtml();
+		?>
+	</div>

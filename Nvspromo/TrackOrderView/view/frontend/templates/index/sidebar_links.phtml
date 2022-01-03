@@ -1,0 +1,134 @@
+<div class="col-lg-12 col-md-12">
+    <div class="sidebar sidebar-main">
+        <div class="block account-nav">
+            <div class="title account-nav-title">
+                <strong></strong>
+            </div>
+            <div class="content account-nav-content" id="account-nav">
+                <ul class="nav items">
+                    <li class="nav item " id="my_account_login">
+                        <a id="my_account_login_a" href="<?php echo $this->getBaseUrl();?>order_tracker_view/index/customerlogin/?my_account">My Account</a>
+                    </li>
+                    <li class="nav item ">
+                        <a>My Wish List</a>
+                    </li>
+                    <li class="nav item ">
+                        <span class="delimiter"></span>
+                    </li>
+                    <li class="nav item ">
+                        <a>Address Book</a>
+                    </li>
+                    <li class="nav item ">
+                        <a>Account Information</a>
+                    </li>
+                    <li class="nav item ">
+                        <a>Stored Payment Methods</a>
+                    </li>
+                    <li class="nav item ">
+                        <span class="delimiter"></span>
+                    </li>
+                    <li class="nav item ">
+                        <a>My Product Reviews</a>
+                    </li>
+                    <li class="nav item ">
+                        <a>Newsletter Subscriptions</a>
+                    </li>
+                    <li class="nav item " id="my_order_login">
+                        <a id="my_order_login_a" href="<?php echo $this->getBaseUrl();?>order_tracker_view/index/customerlogin/?my_orders">My Orders</a>
+                    </li>
+                    <li class="nav item " id="my_invoice_login">
+                        <a id="my_invoice_login_a" href="<?php echo $this->getBaseUrl();?>order_tracker_view/index/customerlogin/?my_invoices">My Invoices</a>
+                    </li>
+                </ul>    
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div id="popup-modal-main" style="display:none;">
+    <div class="block block-customer-login" style="border: none;">
+    <div class="block-title">
+        <strong id="block-customer-login-heading" role="heading" aria-level="2"><?= $block->escapeHtml(__('Registered Customers')) ?></strong>
+    </div>
+    <div class="block-content" aria-labelledby="block-customer-login-heading">
+        <form class="form form-login"
+              action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+              method="post"
+              id="login-form"
+              data-mage-init='{"validation":{}}'>
+            <?= $block->getBlockHtml('formkey') ?>
+            <fieldset class="fieldset login" data-hasrequired="<?= $block->escapeHtml(__('* Required Fields')) ?>">
+                <div class="field note"><?= $block->escapeHtml(__('If you have an account, sign in with your email address.')) ?></div>
+                <div class="field email required">
+                    <label class="label" for="email"><span><?= $block->escapeHtml(__('Email')) ?></span></label>
+                    <div class="control">
+                        <input name="login[username]" value="<?= $block->escapeHtmlAttr($block->getUsername()) ?>"
+                            <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?>
+                               id="email" type="email" class="input-text"
+                               title="<?= $block->escapeHtmlAttr(__('Email')) ?>"
+                               data-mage-init='{"mage/trim-input":{}}'
+                               data-validate="{required:true, 'validate-email':true}">
+                    </div>
+                </div>
+                <div class="field password required">
+                    <label for="pass" class="label"><span><?= $block->escapeHtml(__('Password')) ?></span></label>
+                    <div class="control">
+                        <input name="login[password]" type="password"
+                            <?php if ($block->isAutocompleteDisabled()): ?> autocomplete="off"<?php endif; ?>
+                               class="input-text" id="pass"
+                               title="<?= $block->escapeHtmlAttr(__('Password')) ?>"
+                               data-validate="{required:true}">
+                    </div>
+                </div>
+                <?= $block->getChildHtml('form_additional_info') ?>
+                <div class="actions-toolbar">
+                    <div class="primary"><button type="submit" class="action login primary" name="send" id="send2"><span><?= $block->escapeHtml(__('Sign In')) ?></span></button></div>
+                    <div class="secondary"><a class="action remind" href="<?= $block->escapeUrl($block->getForgotPasswordUrl()) ?>"><span><?= $block->escapeHtml(__('Forgot Your Password?')) ?></span></a></div>
+                    <?php
+                    $blockRegistartion = $block->getLayout()->createBlock('Magento\Customer\Block\Form\Login\Info');
+                        if ($blockRegistartion->getRegistration()->isAllowed()) : ?>
+                        <div class="primary" style="float: right;">
+                            <a href="<?php echo $this->getBaseUrl();?>order_tracker_view/index/customerregistration/" class="action create primary"><span><?= $block->escapeHtml(__('Create an Account')) ?></span></a>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Magento_Customer/js/block-submit-on-send": {
+                    "formId": "login-form"
+                }
+            }
+        }
+    </script>
+</div>
+<script>
+require(
+    [
+        'jquery',
+        'Magento_Ui/js/modal/modal'
+    ],
+    function($, modal) {
+        var options = {
+            type: 'popup',
+            responsive: true,
+            innerScroll: true,
+            title: 'Popup Title',
+            buttons: [{
+                text: $.mage.__('Close'),
+                class: '',
+                click: function () {
+                    this.closeModal();
+                }
+            }]
+        };
+
+        var popup = modal(options, $('#popup-modal-main'));
+        $("#my_account_login").on('click',function(){ 
+            $("#popup-modal-main").modal("openModal");
+        });
+    }
+);
+</script> -->
